@@ -1,0 +1,59 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"  xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory app:title="@string/settings_clock_customization_category"
+        app:layout="@layout/category">
+
+        <SwitchPreferenceCompat
+            app:key="@string/show_seconds_key"
+            app:title="@string/show_seconds_title"
+            app:summaryOff="@string/show_seconds_summary_off"
+            app:summaryOn="@string/show_seconds_summary_on"
+            app:defaultValue="@bool/default_show_seconds" />
+
+        <SwitchPreferenceCompat
+            app:dependency="@string/show_seconds_key"
+            app:key="@string/show_seconds_only_when_stopped_key"
+            app:title="@string/show_seconds_only_when_stopped_title"
+            app:singleLineTitle="false"
+            app:defaultValue="@bool/default_show_seconds_only_when_stopped" />
+
+        <SeekBarPreference
+            app:key="@string/clock_opacity_key"
+            app:title="@string/clock_opacity_title"
+            app:defaultValue="@integer/default_clock_opacity"
+            app:showSeekBarValue="true"
+            app:min="1"
+            android:max="20"/>
+
+        <SeekBarPreference
+            app:key="@string/clock_size_key"
+            app:title="@string/clock_size_title"
+            app:defaultValue="@integer/default_clock_size"
+            app:showSeekBarValue="true"
+            app:min="40"
+            android:max="100"/>
+
+        <SeekBarPreference
+            app:key="@string/clock_movement_key"
+            app:title="@string/clock_movement_title"
+            app:defaultValue="@integer/default_clock_movement"
+            app:showSeekBarValue="true"
+            app:min="0"
+            android:max="10"/>
+
+<!--        <EditTextPreference-->
+<!--            app:key="signature"-->
+<!--            app:title="@string/signature_title"-->
+<!--            app:useSimpleSummaryProvider="true" />-->
+
+<!--        <ListPreference-->
+<!--            app:defaultValue="reply"-->
+<!--            app:entries="@array/reply_entries"-->
+<!--            app:entryValues="@array/reply_values"-->
+<!--            app:key="reply"-->
+<!--            app:title="@string/reply_title"-->
+<!--            app:useSimpleSummaryProvider="true" />-->
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

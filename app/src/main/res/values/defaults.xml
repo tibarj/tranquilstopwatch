@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="default_show_seconds">true</bool>
+    <bool name="default_show_seconds_only_when_stopped">false</bool>
+    <integer name="default_clock_opacity">7</integer>
+    <integer name="default_clock_size">60</integer>
+    <integer name="default_clock_movement">0</integer>
+</resources>

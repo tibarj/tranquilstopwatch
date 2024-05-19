@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AboutFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/textview_usage_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/usage_category_title"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:padding="16dp"
+            android:paddingStart="45dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/textview_usage" />
+
+        <TextView
+            android:id="@+id/textview_usage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/usage"
+            android:textSize="22sp"
+            android:paddingStart="45dp"
+            android:paddingBottom="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textview_usage_category"
+            app:layout_constraintBottom_toTopOf="@+id/textview_version_category" />
+
+        <TextView
+            android:id="@+id/textview_version_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/usage_category_version"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:padding="16dp"
+            android:paddingStart="45dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textview_usage"
+            app:layout_constraintBottom_toTopOf="@+id/textview_version" />
+
+        <TextView
+            android:id="@+id/textview_version"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="45dp"
+            android:paddingBottom="20dp"
+            android:text="@string/version"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textview_version_category" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

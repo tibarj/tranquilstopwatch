@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
+    tools:context="com.leanway.tranquilstopwatch.MainActivity">
+
+<!--    <com.google.android.material.appbar.AppBarLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:fitsSystemWindows="true" />-->
+
+    <include layout="@layout/main_content"
+        android:id="@+id/content_main" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/about_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|start"
+        android:layout_marginStart="@dimen/fab_margin"
+        android:layout_marginBottom="16dp"
+        app:maxImageSize="40dp"
+        app:backgroundTint="@color/transparent"
+        app:srcCompat="@drawable/baseline_info_outline_24"
+        app:tint="@color/material_dynamic_neutral70" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/settings_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|end"
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:layout_marginBottom="16dp"
+        app:maxImageSize="40dp"
+        app:backgroundTint="@color/transparent"
+        app:srcCompat="@drawable/baseline_settings_24"
+        app:tint="@color/material_dynamic_neutral70" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
