@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Color when enabled -->
+    <item android:color="?attr/colorControlNormal" android:state_enabled="true" />
+    <!-- Color when disabled -->
+    <item android:color="?android:attr/textColorSecondary" />
+</selector>

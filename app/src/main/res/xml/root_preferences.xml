@@ -1,9 +1,11 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"  xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory app:title="@string/settings_clock_customization_category"
+    <PreferenceCategory
+        app:title="@string/settings_clock_customization_category"
         app:layout="@layout/category">
 
         <SwitchPreferenceCompat
+            app:icon="@drawable/baseline_hdr_strong_24"
             app:key="@string/show_seconds_key"
             app:title="@string/show_seconds_title"
             app:summaryOff="@string/show_seconds_summary_off"
@@ -11,6 +13,7 @@
             app:defaultValue="@bool/default_show_seconds" />
 
         <SwitchPreferenceCompat
+            app:icon="@drawable/baseline_hdr_weak_24"
             app:dependency="@string/show_seconds_key"
             app:key="@string/show_seconds_only_when_stopped_key"
             app:title="@string/show_seconds_only_when_stopped_title"
@@ -18,6 +21,7 @@
             app:defaultValue="@bool/default_show_seconds_only_when_stopped" />
 
         <SeekBarPreference
+            app:icon="@drawable/baseline_opacity_24"
             app:key="@string/clock_opacity_key"
             app:title="@string/clock_opacity_title"
             app:defaultValue="@integer/default_clock_opacity"
@@ -26,6 +30,7 @@
             android:max="20"/>
 
         <SeekBarPreference
+            app:icon="@drawable/baseline_format_size_24"
             app:key="@string/clock_size_key"
             app:title="@string/clock_size_title"
             app:defaultValue="@integer/default_clock_size"
@@ -34,6 +39,7 @@
             android:max="100"/>
 
         <SeekBarPreference
+            app:icon="@drawable/baseline_moving_24"
             app:key="@string/clock_movement_key"
             app:title="@string/clock_movement_title"
             app:defaultValue="@integer/default_clock_movement"

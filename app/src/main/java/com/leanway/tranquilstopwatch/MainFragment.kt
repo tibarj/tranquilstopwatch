@@ -50,24 +50,7 @@ class MainFragment : Fragment() {
         _runnable = Runnable {
             onTimerTick()
         }
-        binding.timeview.setOnClickListener {
-            Log.d(tag, "OnClick")
-            if (isStarted()) {
-                stop()
-            } else {
-                start()
-            }
-        }
-        binding.panel.setOnClickListener {
-            Log.d(tag, "OnClickPanel")
-            val activity = requireActivity() as MainActivity
-            activity.showSettingsButton()
-        }
-        binding.timeview.setOnLongClickListener {
-            Log.d(tag, "onLongClick")
-            reset()
-            true
-        }
+        initTapListeners()
         return binding.root
     }
 
@@ -103,6 +86,7 @@ class MainFragment : Fragment() {
             getString(R.string.show_seconds_only_when_stopped_key),
             resources.getBoolean(R.bool.default_show_seconds_only_when_stopped)
         )
+
         val opacity = pref.getInt(getString(R.string.clock_opacity_key), resources.getInteger(R.integer.default_clock_opacity))
         Log.d(tag, "setClockOpacity " + opacity.toString())
         binding.timeview.alpha = opacity.toFloat() / 20f
@@ -149,6 +133,23 @@ class MainFragment : Fragment() {
         unkeepScreenOn()
     }
 
+    private fun initTapListeners() {
+        Log.d(tag, "setTapListeners")
+        binding.timeview.setOnClickListener {
+            Log.d(tag, "OnClickTimeview")
+            toggle()
+        }
+        binding.timeview.setOnLongClickListener {
+            Log.d(tag, "onLongClickTimeview")
+            reset()
+            true
+        }
+        binding.panel.setOnClickListener {
+            Log.d(tag, "OnClickPanel")
+            (requireActivity() as MainActivity).showSettingsButton()
+        }
+    }
+
     private fun isStarted(): Boolean {
         return 0L != _startedAt
     }
@@ -178,6 +179,15 @@ class MainFragment : Fragment() {
             display() // show seconds because showing only when stopped
         }
         this.logState()
+    }
+
+    private fun toggle() {
+        Log.d(tag, "toggle")
+        if (isStarted()) {
+            stop()
+        } else {
+            start()
+        }
     }
 
     private fun reset() {
