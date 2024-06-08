@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <bool name="default_hide_hours">false</bool>
     <bool name="default_show_seconds">true</bool>
     <bool name="default_show_seconds_only_when_stopped">false</bool>
     <integer name="default_clock_opacity">7</integer>

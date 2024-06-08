@@ -5,6 +5,12 @@
         app:layout="@layout/category">
 
         <SwitchPreferenceCompat
+            app:icon="@drawable/baseline_hide_source_24"
+            app:key="@string/hide_hours_key"
+            app:title="@string/hide_hours_title"
+            app:defaultValue="@bool/default_hide_hours" />
+
+        <SwitchPreferenceCompat
             app:icon="@drawable/baseline_hdr_strong_24"
             app:key="@string/show_seconds_key"
             app:title="@string/show_seconds_title"

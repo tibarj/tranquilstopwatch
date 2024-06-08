@@ -28,6 +28,7 @@ class MainFragment : Fragment() {
     private val _handler = Handler(Looper.getMainLooper())
     private var _startedAt: Long = 0 // ms
     private var _anteriority: Long = 0 // ms, sum of all start-stop segments durations
+    private var _showHours: Boolean = true
     private var _showSeconds: Boolean = true
     private var _showSecondsWhenStarted: Boolean = true
     private var _movement: Int = 0
@@ -78,6 +79,10 @@ class MainFragment : Fragment() {
     private fun loadPref() {
         Log.d(tag, "applyPref")
         val pref = PreferenceManager.getDefaultSharedPreferences(requireActivity())
+        _showHours = !pref.getBoolean(
+            getString(R.string.hide_hours_key),
+            resources.getBoolean(R.bool.default_hide_hours)
+        )
         _showSeconds = pref.getBoolean(
             getString(R.string.show_seconds_key),
             resources.getBoolean(R.bool.default_show_seconds)
@@ -199,8 +204,7 @@ class MainFragment : Fragment() {
         unkeepScreenOn()
         setColor(R.color.red)
         _binding?.timeview?.setText(
-            if (_showSeconds) R.string.default_second_time
-            else R.string.default_minute_time
+            (if (_showHours) "0:" else "") + "00" + (if (_showSeconds) ":00" else "")
         )
     }
 
@@ -213,7 +217,7 @@ class MainFragment : Fragment() {
         var s = TimeUnit.MILLISECONDS.toSeconds(elapsed) % 60
         _binding?.timeview?.text =
             // hours
-            (if (h != 0L) String.format("%d:", h) else "") +
+            (if (h != 0L || _showHours) String.format("%d:", h) else "") +
             // minutes
             String.format("%02d", m) +
             // seconds
@@ -256,6 +260,7 @@ class MainFragment : Fragment() {
         Log.d(tag, "state={")
         Log.d(tag, "  _startedAt=" + _startedAt.toString())
         Log.d(tag, "  _anteriority=" + _anteriority.toString())
+        Log.d(tag, "  _showHours=" + _showHours.toString())
         Log.d(tag, "  _showSeconds=" + _showSeconds.toString())
         Log.d(tag, "  _showSecondsWhenStarted=" + _showSecondsWhenStarted.toString())
         Log.d(tag, "  isStarted=" + isStarted().toString())
