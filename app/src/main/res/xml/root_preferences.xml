@@ -26,6 +26,13 @@
             app:singleLineTitle="false"
             app:defaultValue="@bool/default_show_seconds_only_when_stopped" />
 
+        <SwitchPreferenceCompat
+            app:icon="@drawable/baseline_scoreboard_24"
+            app:dependency="@string/show_seconds_key"
+            app:key="@string/seconds_separator_key"
+            app:title="@string/seconds_separator_title"
+            app:defaultValue="@bool/default_seconds_separator" />
+
         <SeekBarPreference
             app:icon="@drawable/baseline_opacity_24"
             app:key="@string/clock_opacity_key"

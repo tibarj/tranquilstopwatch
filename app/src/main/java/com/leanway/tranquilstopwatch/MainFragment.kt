@@ -31,6 +31,7 @@ class MainFragment : Fragment() {
     private var _showHours: Boolean = true
     private var _showSeconds: Boolean = true
     private var _showSecondsWhenStarted: Boolean = true
+    private var _secondsSeparator: Boolean = false
     private var _movement: Int = 0
 
     // This property is only valid between onCreateView and onDestroyView.
@@ -90,6 +91,10 @@ class MainFragment : Fragment() {
         _showSecondsWhenStarted = _showSeconds && !pref.getBoolean(
             getString(R.string.show_seconds_only_when_stopped_key),
             resources.getBoolean(R.bool.default_show_seconds_only_when_stopped)
+        )
+        _secondsSeparator = pref.getBoolean(
+            getString(R.string.seconds_separator_key),
+            resources.getBoolean(R.bool.default_seconds_separator)
         )
 
         val opacity = pref.getInt(getString(R.string.clock_opacity_key), resources.getInteger(R.integer.default_clock_opacity))
@@ -204,7 +209,12 @@ class MainFragment : Fragment() {
         unkeepScreenOn()
         setColor(R.color.red)
         _binding?.timeview?.setText(
-            (if (_showHours) "0:" else "") + "00" + (if (_showSeconds) ":00" else "")
+            // hours
+            (if (_showHours) "0:" else "") +
+            // minutes
+            "00" +
+            // seconds
+            (if (_showSeconds) (if (_secondsSeparator) ".00" else ":00") else "")
         )
     }
 
@@ -222,7 +232,7 @@ class MainFragment : Fragment() {
             String.format("%02d", m) +
             // seconds
             if (_showSecondsWhenStarted || (!isStarted() && _showSeconds))
-                String.format(":%02d", s) else ""
+                (if (_secondsSeparator) "." else ":") + String.format("%02d", s) else ""
         if (s == 0L && 0 != _movement) {
             changeMargins()
         }
@@ -263,6 +273,7 @@ class MainFragment : Fragment() {
         Log.d(tag, "  _showHours=" + _showHours.toString())
         Log.d(tag, "  _showSeconds=" + _showSeconds.toString())
         Log.d(tag, "  _showSecondsWhenStarted=" + _showSecondsWhenStarted.toString())
+        Log.d(tag, "  _secondsSeparator=" + _secondsSeparator.toString())
         Log.d(tag, "  isStarted=" + isStarted().toString())
         Log.d(tag, "}")
     }
