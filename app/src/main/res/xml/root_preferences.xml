@@ -28,10 +28,9 @@
 
         <SwitchPreferenceCompat
             app:icon="@drawable/baseline_scoreboard_24"
-            app:dependency="@string/show_seconds_key"
-            app:key="@string/seconds_separator_key"
-            app:title="@string/seconds_separator_title"
-            app:defaultValue="@bool/default_seconds_separator" />
+            app:key="@string/dot_separator_key"
+            app:title="@string/dot_separator_title"
+            app:defaultValue="@bool/default_dot_separator" />
 
         <SeekBarPreference
             app:icon="@drawable/baseline_opacity_24"

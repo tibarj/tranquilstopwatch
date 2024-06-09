@@ -31,7 +31,7 @@ class MainFragment : Fragment() {
     private var _showHours: Boolean = true
     private var _showSeconds: Boolean = true
     private var _showSecondsWhenStarted: Boolean = true
-    private var _secondsSeparator: Boolean = false
+    private var _sep: Char = ':'
     private var _movement: Int = 0
 
     // This property is only valid between onCreateView and onDestroyView.
@@ -92,10 +92,10 @@ class MainFragment : Fragment() {
             getString(R.string.show_seconds_only_when_stopped_key),
             resources.getBoolean(R.bool.default_show_seconds_only_when_stopped)
         )
-        _secondsSeparator = pref.getBoolean(
-            getString(R.string.seconds_separator_key),
-            resources.getBoolean(R.bool.default_seconds_separator)
-        )
+        _sep = if (pref.getBoolean(
+            getString(R.string.dot_separator_key),
+            resources.getBoolean(R.bool.default_dot_separator)
+        )) '.' else ':'
 
         val opacity = pref.getInt(getString(R.string.clock_opacity_key), resources.getInteger(R.integer.default_clock_opacity))
         Log.d(tag, "setClockOpacity " + opacity.toString())
@@ -208,34 +208,31 @@ class MainFragment : Fragment() {
         saveInstanceState()
         unkeepScreenOn()
         setColor(R.color.red)
-        _binding?.timeview?.setText(
-            // hours
-            (if (_showHours) "0:" else "") +
-            // minutes
-            "00" +
-            // seconds
-            (if (_showSeconds) (if (_secondsSeparator) ".00" else ":00") else "")
-        )
+        setClock(0, 0, 0)
     }
 
     private fun display() {
         Log.d(tag, "display")
         val elapsed = _anteriority + if (isStarted()) System.currentTimeMillis() - _startedAt else 0L
         Log.d(tag, " >elapsed=$elapsed")
-        val h = TimeUnit.MILLISECONDS.toHours(elapsed)
-        val m = TimeUnit.MILLISECONDS.toMinutes(elapsed) % 60
-        var s = TimeUnit.MILLISECONDS.toSeconds(elapsed) % 60
-        _binding?.timeview?.text =
-            // hours
-            (if (h != 0L || _showHours) String.format("%d:", h) else "") +
-            // minutes
-            String.format("%02d", m) +
-            // seconds
-            if (_showSecondsWhenStarted || (!isStarted() && _showSeconds))
-                (if (_secondsSeparator) "." else ":") + String.format("%02d", s) else ""
-        if (s == 0L && 0 != _movement) {
+        val h = TimeUnit.MILLISECONDS.toHours(elapsed).toInt()
+        val m = TimeUnit.MILLISECONDS.toMinutes(elapsed).toInt() % 60
+        val s = TimeUnit.MILLISECONDS.toSeconds(elapsed).toInt() % 60
+        setClock(h, m, s)
+        if (s == 0 && 0 != _movement) {
             changeMargins()
         }
+    }
+
+    private fun setClock(h: Int, m: Int, s: Int) {
+        _binding?.timeview?.text = getString(
+            R.string.clock,
+            if (h != 0 || _showHours) getString(R.string.clock_h, h) else "",
+            _sep,
+            m,
+            _sep,
+            if (_showSecondsWhenStarted || (!isStarted() && _showSeconds)) getString(R.string.clock_ss, s) else ""
+        )
     }
 
     private fun changeMargins() {
@@ -273,7 +270,7 @@ class MainFragment : Fragment() {
         Log.d(tag, "  _showHours=" + _showHours.toString())
         Log.d(tag, "  _showSeconds=" + _showSeconds.toString())
         Log.d(tag, "  _showSecondsWhenStarted=" + _showSecondsWhenStarted.toString())
-        Log.d(tag, "  _secondsSeparator=" + _secondsSeparator.toString())
+        Log.d(tag, "  _sep=$_sep")
         Log.d(tag, "  isStarted=" + isStarted().toString())
         Log.d(tag, "}")
     }
