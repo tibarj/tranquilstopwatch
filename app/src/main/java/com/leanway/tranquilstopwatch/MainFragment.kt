@@ -33,6 +33,8 @@ class MainFragment : Fragment() {
     private var _showSecondsWhenStarted: Boolean = true
     private var _sep: Char = ':'
     private var _movement: Int = 0
+    private var _lastH: Int = -1
+    private var _lastMm: Int = -1
 
     // This property is only valid between onCreateView and onDestroyView.
     val binding get() = _binding!!
@@ -99,11 +101,15 @@ class MainFragment : Fragment() {
 
         val opacity = pref.getInt(getString(R.string.clock_opacity_key), resources.getInteger(R.integer.default_clock_opacity))
         Log.d(tag, "setClockOpacity " + opacity.toString())
-        binding.timeview.alpha = opacity.toFloat() / 20f
+        binding.timeviewH.alpha = opacity.toFloat() / 20f
+        binding.timeviewMm.alpha = opacity.toFloat() / 20f
+        binding.timeviewSs.alpha = opacity.toFloat() / 20f
 
         val size = pref.getInt("clock_size_key", resources.getInteger(R.integer.default_clock_size))
         Log.d(tag, "setClockSize " + size.toString())
-        binding.timeview.textSize = size.toFloat()
+        binding.timeviewH.textSize = size.toFloat()
+        binding.timeviewMm.textSize = size.toFloat()
+        binding.timeviewSs.textSize = size.toFloat()
 
         val movement = pref.getInt("clock_movement_key", resources.getInteger(R.integer.default_clock_movement))
         if (_movement != movement) {
@@ -145,11 +151,11 @@ class MainFragment : Fragment() {
 
     private fun initTapListeners() {
         Log.d(tag, "setTapListeners")
-        binding.timeview.setOnClickListener {
+        binding.timeviewParent.setOnClickListener {
             Log.d(tag, "OnClickTimeview")
             toggle()
         }
-        binding.timeview.setOnLongClickListener {
+        binding.timeviewParent.setOnLongClickListener {
             Log.d(tag, "onLongClickTimeview")
             reset()
             true
@@ -225,13 +231,24 @@ class MainFragment : Fragment() {
     }
 
     private fun setClock(h: Int, m: Int, s: Int) {
-        _binding?.timeview?.text = getString(
-            R.string.clock,
-            if (h != 0 || _showHours) getString(R.string.clock_h, h) else "",
-            _sep,
-            m,
-            _sep,
-            if (_showSecondsWhenStarted || (!isStarted() && _showSeconds)) getString(R.string.clock_ss, s) else ""
+        Log.d(tag, "setClock")
+        if (m != _lastMm) {
+            if (h != _lastH) {
+                Log.d(tag, "setClockH")
+                _binding?.timeviewH?.text = getString(
+                    R.string.clock_h,
+                    if (h != 0 || _showHours) String.format("%d", h) else ""
+                )
+                _lastH = h
+            }
+            Log.d(tag, "setClockMm")
+            _binding?.timeviewMm?.text = getString(R.string.clock_mm, _sep, m, _sep)
+            _lastMm = m
+        }
+        Log.d(tag, "setClockSs")
+        _binding?.timeviewSs?.text = getString(
+            R.string.clock_ss,
+            if (_showSecondsWhenStarted || (!isStarted() && _showSeconds)) String.format("%02d", s) else ""
         )
     }
 
@@ -243,14 +260,17 @@ class MainFragment : Fragment() {
 
     private fun setMargins(h: Int, v: Int) {
         Log.d(tag, "setMargins")
-        val layoutParams = (_binding?.timeview?.layoutParams as? MarginLayoutParams)
+        val layoutParams = (_binding?.timeviewParent?.layoutParams as? MarginLayoutParams)
         layoutParams?.setMargins(h, v, -h, -v)
-        _binding?.timeview?.layoutParams = layoutParams
+        _binding?.timeviewParent?.layoutParams = layoutParams
     }
 
     private fun setColor(@ColorRes color: Int) {
         Log.d(tag, "setColor")
-        _binding?.timeview?.setTextColor(ContextCompat.getColor(requireActivity(), color))
+        val colorI = ContextCompat.getColor(requireActivity(), color)
+        _binding?.timeviewH?.setTextColor(colorI)
+        _binding?.timeviewMm?.setTextColor(colorI)
+        _binding?.timeviewSs?.setTextColor(colorI)
     }
 
     private fun keepScreenOn() {
