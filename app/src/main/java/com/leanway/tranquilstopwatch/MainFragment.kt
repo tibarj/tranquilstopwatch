@@ -34,7 +34,7 @@ class MainFragment : Fragment() {
     private var _sep: Char = ':'
     private var _movement: Int = 0
     private var _lastH: Int = -1
-    private var _lastMm: Int = -1
+    private var _lastM: Int = -1
 
     // This property is only valid between onCreateView and onDestroyView.
     val binding get() = _binding!!
@@ -48,6 +48,8 @@ class MainFragment : Fragment() {
             "appState",
             Context.MODE_PRIVATE
         )
+        _lastH = -1
+        _lastM = -1
         _startedAt = _sharedPreferences.getLong("startedAt", 0L)
         _anteriority = _sharedPreferences.getLong("anteriority", 0L)
         _binding = MainFragmentBinding.inflate(inflater, container, false)
@@ -219,12 +221,17 @@ class MainFragment : Fragment() {
 
     private fun display() {
         Log.d(tag, "display")
-        val elapsed = _anteriority + if (isStarted()) System.currentTimeMillis() - _startedAt else 0L
+        val elapsed = TimeUnit.MILLISECONDS.toSeconds(
+            _anteriority + if (isStarted()) System.currentTimeMillis() - _startedAt else 0L
+        )
         Log.d(tag, " >elapsed=$elapsed")
-        val h = TimeUnit.MILLISECONDS.toHours(elapsed).toInt()
-        val m = TimeUnit.MILLISECONDS.toMinutes(elapsed).toInt() % 60
-        val s = TimeUnit.MILLISECONDS.toSeconds(elapsed).toInt() % 60
-        setClock(h, m, s)
+
+        val s = elapsed.toInt() % 60
+        setClock(
+            TimeUnit.SECONDS.toHours(elapsed).toInt(),
+            TimeUnit.SECONDS.toMinutes(elapsed).toInt() % 60,
+            s
+        )
         if (s == 0 && 0 != _movement) {
             changeMargins()
         }
@@ -232,18 +239,18 @@ class MainFragment : Fragment() {
 
     private fun setClock(h: Int, m: Int, s: Int) {
         Log.d(tag, "setClock")
-        if (m != _lastMm) {
-            if (h != _lastH) {
-                Log.d(tag, "setClockH")
-                _binding?.timeviewH?.text = getString(
-                    R.string.clock_h,
-                    if (h != 0 || _showHours) String.format("%d", h) else ""
-                )
-                _lastH = h
-            }
+        if (h != _lastH) {
+            Log.d(tag, "setClockH")
+            _binding?.timeviewH?.text = getString(
+                R.string.clock_h,
+                if (h != 0 || _showHours) String.format("%d", h) else ""
+            )
+            _lastH = h
+        }
+        if (m != _lastM) {
             Log.d(tag, "setClockMm")
             _binding?.timeviewMm?.text = getString(R.string.clock_mm, _sep, m, _sep)
-            _lastMm = m
+            _lastM = m
         }
         Log.d(tag, "setClockSs")
         _binding?.timeviewSs?.text = getString(
