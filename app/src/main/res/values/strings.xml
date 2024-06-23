@@ -11,8 +11,6 @@
 
     <string name="settings_clock_customization_category">Clock customization</string>
 
-    <string name="hide_hours_title">Hide hours when 0</string>
-
     <string name="show_seconds_title">Display seconds</string>
     <string name="show_seconds_summary_off">Energy footprint: Best</string>
     <string name="show_seconds_summary_on">Seconds display consumes more CPU</string>

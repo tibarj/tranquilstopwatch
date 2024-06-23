@@ -28,7 +28,6 @@ class MainFragment : Fragment() {
     private val _handler = Handler(Looper.getMainLooper())
     private var _startedAt: Long = 0 // ms
     private var _anteriority: Long = 0 // ms, sum of all start-stop segments durations
-    private var _showHours: Boolean = true
     private var _showSeconds: Boolean = true
     private var _showSecondsWhenStarted: Boolean = true
     private var _sep: Char = ':'
@@ -40,7 +39,8 @@ class MainFragment : Fragment() {
     val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         Log.d(tag, "onCreateView")
@@ -84,10 +84,6 @@ class MainFragment : Fragment() {
     private fun loadPref() {
         Log.d(tag, "applyPref")
         val pref = PreferenceManager.getDefaultSharedPreferences(requireActivity())
-        _showHours = !pref.getBoolean(
-            getString(R.string.hide_hours_key),
-            resources.getBoolean(R.bool.default_hide_hours)
-        )
         _showSeconds = pref.getBoolean(
             getString(R.string.show_seconds_key),
             resources.getBoolean(R.bool.default_show_seconds)
@@ -241,10 +237,7 @@ class MainFragment : Fragment() {
         Log.d(tag, "setClock")
         if (h != _lastH) {
             Log.d(tag, "setClockH")
-            _binding?.timeviewH?.text = getString(
-                R.string.clock_h,
-                if (h != 0 || _showHours) String.format("%d", h) else ""
-            )
+            _binding?.timeviewH?.text = getString(R.string.clock_h, String.format("%d", h))
             _lastH = h
         }
         if (m != _lastM) {
@@ -294,7 +287,6 @@ class MainFragment : Fragment() {
         Log.d(tag, "state={")
         Log.d(tag, "  _startedAt=" + _startedAt.toString())
         Log.d(tag, "  _anteriority=" + _anteriority.toString())
-        Log.d(tag, "  _showHours=" + _showHours.toString())
         Log.d(tag, "  _showSeconds=" + _showSeconds.toString())
         Log.d(tag, "  _showSecondsWhenStarted=" + _showSecondsWhenStarted.toString())
         Log.d(tag, "  _sep=$_sep")

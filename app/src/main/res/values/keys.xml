@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" translatable="false">
-    <string name="hide_hours_key">hide_hours</string>
     <string name="show_seconds_key">show_seconds</string>
     <string name="show_seconds_only_when_stopped_key">show_seconds_only_when_stopped_key</string>
     <string name="dot_separator_key">dot_separator_key</string>
