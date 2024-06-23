@@ -93,9 +93,9 @@ class MainFragment : Fragment() {
             resources.getBoolean(R.bool.default_show_seconds_only_when_stopped)
         )
         _sep = if (pref.getBoolean(
-            getString(R.string.dot_separator_key),
-            resources.getBoolean(R.bool.default_dot_separator)
-        )) '.' else ':'
+            getString(R.string.hide_separators_key),
+            resources.getBoolean(R.bool.default_hide_separators)
+        )) ' ' else ':'
 
         val opacity = pref.getInt(getString(R.string.clock_opacity_key), resources.getInteger(R.integer.default_clock_opacity))
         Log.d(tag, "setClockOpacity " + opacity.toString())

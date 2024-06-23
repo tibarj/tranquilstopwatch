@@ -17,7 +17,7 @@
 
     <string name="show_seconds_only_when_stopped_title">Display seconds only in pause state</string>
 
-    <string name="dot_separator_title">Use dot as separator</string>
+    <string name="hide_separators_title">Hide separators</string>
 
     <string name="clock_opacity_title">Clock opacity</string>
     <string name="clock_size_title">Clock size</string>

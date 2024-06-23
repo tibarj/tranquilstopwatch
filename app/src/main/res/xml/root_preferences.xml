@@ -22,9 +22,9 @@
 
         <SwitchPreferenceCompat
             app:icon="@drawable/baseline_scoreboard_24"
-            app:key="@string/dot_separator_key"
-            app:title="@string/dot_separator_title"
-            app:defaultValue="@bool/default_dot_separator" />
+            app:key="@string/hide_separators_key"
+            app:title="@string/hide_separators_title"
+            app:defaultValue="@bool/default_hide_separators" />
 
         <SeekBarPreference
             app:icon="@drawable/baseline_opacity_24"
@@ -52,19 +52,6 @@
             app:showSeekBarValue="true"
             app:min="0"
             android:max="10"/>
-
-<!--        <EditTextPreference-->
-<!--            app:key="signature"-->
-<!--            app:title="@string/signature_title"-->
-<!--            app:useSimpleSummaryProvider="true" />-->
-
-<!--        <ListPreference-->
-<!--            app:defaultValue="reply"-->
-<!--            app:entries="@array/reply_entries"-->
-<!--            app:entryValues="@array/reply_values"-->
-<!--            app:key="reply"-->
-<!--            app:title="@string/reply_title"-->
-<!--            app:useSimpleSummaryProvider="true" />-->
 
     </PreferenceCategory>
 
