@@ -1,4 +1,4 @@
-package com.leanway.tranquilstopwatch
+package tibarj.tranquilstopwatch
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

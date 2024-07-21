@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.leanway.tranquilstopwatch"
+    namespace = "tibarj.tranquilstopwatch"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.leanway.tranquilstopwatch"
+        applicationId = "tibarj.tranquilstopwatch"
         minSdk = 30
         targetSdk = 34
         versionCode = 1

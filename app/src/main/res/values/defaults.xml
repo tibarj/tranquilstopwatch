@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <bool name="default_show_seconds">true</bool>
-    <bool name="default_show_seconds_only_when_stopped">false</bool>
-    <bool name="default_hide_separators">false</bool>
-    <integer name="default_clock_opacity">7</integer>
-    <integer name="default_clock_size">60</integer>
+    <bool name="default_stopwatch_show_seconds">true</bool>
+    <bool name="default_stopwatch_show_seconds_only_when_stopped">false</bool>
+    <bool name="default_stopwatch_font_thin">false</bool>
+    <bool name="default_clock_enabled">true</bool>
+    <bool name="default_clock_font_thin">false</bool>
+    <integer name="default_stopwatch_opacity">13</integer>
+    <integer name="default_stopwatch_size">60</integer>
+    <integer name="default_stopwatch_movement">0</integer>
+    <integer name="default_clock_opacity">13</integer>
     <integer name="default_clock_movement">0</integer>
 </resources>

@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" translatable="false">
-    <string name="show_seconds_key">show_seconds</string>
-    <string name="show_seconds_only_when_stopped_key">show_seconds_only_when_stopped_key</string>
-    <string name="hide_separators_key">hide_separators_key</string>
-    <string name="clock_opacity_key">opacity_key</string>
-    <string name="clock_size_key">clock_size_key</string>
+    <string name="stopwatch_show_seconds_key">stopwatch_show_seconds</string>
+    <string name="stopwatch_show_seconds_only_when_stopped_key">stopwatch_show_seconds_only_when_stopped_key</string>
+    <string name="stopwatch_font_thin_key">stopwatch_font_thin_key</string>
+    <string name="stopwatch_opacity_key">stopwatch_opacity_key</string>
+    <string name="stopwatch_size_key">stopwatch_size_key</string>
+    <string name="stopwatch_movement_key">stopwatch_movement_key</string>
+    <string name="clock_enabled_key">clock_enabled</string>
+    <string name="clock_font_thin_key">clock_font_thin_key</string>
+    <string name="clock_opacity_key">clock_opacity_key</string>
     <string name="clock_movement_key">clock_movement_key</string>
 </resources>

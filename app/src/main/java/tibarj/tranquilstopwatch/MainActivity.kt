@@ -1,15 +1,18 @@
-package com.leanway.tranquilstopwatch
+package tibarj.tranquilstopwatch
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import androidx.fragment.app.commit
 import androidx.preference.PreferenceManager
-import com.leanway.tranquilstopwatch.databinding.MainActivityBinding
+import tibarj.tranquilstopwatch.databinding.MainActivityBinding
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -51,11 +54,6 @@ class MainActivity : AppCompatActivity() {
         }
         showSettingsButton()
     }
-
-//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//        menuInflater.inflate(R.menu.menu_main, menu)
-//        return super.onCreateOptionsMenu(menu)
-//    }
 
     fun showSettingsButton() {
         _runnable?.let {

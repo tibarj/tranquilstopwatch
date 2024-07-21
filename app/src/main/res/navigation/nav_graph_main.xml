@@ -7,8 +7,8 @@
 
     <fragment
         android:id="@+id/MainFragment"
-        android:name="com.leanway.tranquilstopwatch.MainFragment"
+        android:name="tibarj.tranquilstopwatch.StopwatchFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/main_fragment">
+        tools:layout="@layout/stopwatch_fragment">
     </fragment>
 </navigation>

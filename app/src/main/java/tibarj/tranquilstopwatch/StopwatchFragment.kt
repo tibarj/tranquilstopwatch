@@ -1,7 +1,8 @@
-package com.leanway.tranquilstopwatch
+package tibarj.tranquilstopwatch
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -15,25 +16,22 @@ import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
-import com.leanway.tranquilstopwatch.databinding.MainFragmentBinding
+import tibarj.tranquilstopwatch.databinding.StopwatchFragmentBinding
 import java.util.concurrent.TimeUnit
 import kotlin.random.Random
 
 
-class MainFragment : Fragment() {
-    private val tag: String = "MainFragment"
+class StopwatchFragment : Fragment() {
+    private val tag: String = "StopwatchFragment"
     private lateinit var _sharedPreferences: SharedPreferences
-    private var _binding: MainFragmentBinding? = null
+    private var _binding: StopwatchFragmentBinding? = null
     private var _runnable: Runnable? = null
     private val _handler = Handler(Looper.getMainLooper())
     private var _startedAt: Long = 0 // ms
     private var _anteriority: Long = 0 // ms, sum of all start-stop segments durations
     private var _showSeconds: Boolean = true
     private var _showSecondsWhenStarted: Boolean = true
-    private var _sep: Char = ':'
     private var _movement: Int = 0
-    private var _lastH: Int = -1
-    private var _lastM: Int = -1
 
     // This property is only valid between onCreateView and onDestroyView.
     val binding get() = _binding!!
@@ -45,29 +43,17 @@ class MainFragment : Fragment() {
     ): View {
         Log.d(tag, "onCreateView")
         _sharedPreferences = requireContext().getSharedPreferences(
-            "appState",
+            "StopwatchFragment",
             Context.MODE_PRIVATE
         )
-        _lastH = -1
-        _lastM = -1
         _startedAt = _sharedPreferences.getLong("startedAt", 0L)
         _anteriority = _sharedPreferences.getLong("anteriority", 0L)
-        _binding = MainFragmentBinding.inflate(inflater, container, false)
+        _binding = StopwatchFragmentBinding.inflate(inflater, container, false)
         _runnable = Runnable {
             onTimerTick()
         }
         initTapListeners()
         return binding.root
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.d(tag, "onCreate")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d(tag, "onResume")
     }
 
     fun saveInstanceState() {
@@ -85,33 +71,38 @@ class MainFragment : Fragment() {
         Log.d(tag, "applyPref")
         val pref = PreferenceManager.getDefaultSharedPreferences(requireActivity())
         _showSeconds = pref.getBoolean(
-            getString(R.string.show_seconds_key),
-            resources.getBoolean(R.bool.default_show_seconds)
+            getString(R.string.stopwatch_show_seconds_key),
+            resources.getBoolean(R.bool.default_stopwatch_show_seconds)
         )
         _showSecondsWhenStarted = _showSeconds && !pref.getBoolean(
-            getString(R.string.show_seconds_only_when_stopped_key),
-            resources.getBoolean(R.bool.default_show_seconds_only_when_stopped)
+            getString(R.string.stopwatch_show_seconds_only_when_stopped_key),
+            resources.getBoolean(R.bool.default_stopwatch_show_seconds_only_when_stopped)
         )
-        _sep = if (pref.getBoolean(
-            getString(R.string.hide_separators_key),
-            resources.getBoolean(R.bool.default_hide_separators)
-        )) ' ' else ':'
 
-        val opacity = pref.getInt(getString(R.string.clock_opacity_key), resources.getInteger(R.integer.default_clock_opacity))
-        Log.d(tag, "setClockOpacity " + opacity.toString())
-        binding.timeviewH.alpha = opacity.toFloat() / 20f
-        binding.timeviewMm.alpha = opacity.toFloat() / 20f
-        binding.timeviewSs.alpha = opacity.toFloat() / 20f
+        val fontFamily = "sans-serif" + if (pref.getBoolean(
+            getString(R.string.stopwatch_font_thin_key),
+            resources.getBoolean(R.bool.default_stopwatch_font_thin)
+        )) "-thin" else ""
+        Log.d(tag, "setFontFamily " + fontFamily)
+        binding.stopwatch.typeface = Typeface.create(fontFamily, Typeface.NORMAL)
 
-        val size = pref.getInt("clock_size_key", resources.getInteger(R.integer.default_clock_size))
-        Log.d(tag, "setClockSize " + size.toString())
-        binding.timeviewH.textSize = size.toFloat()
-        binding.timeviewMm.textSize = size.toFloat()
-        binding.timeviewSs.textSize = size.toFloat()
+        val opacity = pref.getInt(
+            getString(R.string.stopwatch_opacity_key),
+            resources.getInteger(R.integer.default_stopwatch_opacity)
+        )
+        Log.d(tag, "setStopwatchOpacity " + opacity.toString())
+        binding.stopwatch.alpha = opacity.toFloat() / 20f
 
-        val movement = pref.getInt("clock_movement_key", resources.getInteger(R.integer.default_clock_movement))
+        val size = pref.getInt(getString(R.string.stopwatch_size_key), resources.getInteger(R.integer.default_stopwatch_size))
+        Log.d(tag, "setStopwatchSize " + size.toString())
+        binding.stopwatch.textSize = size.toFloat()
+
+        val movement = pref.getInt(
+            getString(R.string.stopwatch_movement_key),
+            resources.getInteger(R.integer.default_stopwatch_movement)
+        )
         if (_movement != movement) {
-            Log.d(tag, "setClockMovement " + movement.toString())
+            Log.d(tag, "setStopwatchMovement " + movement.toString())
             _movement = movement
             if (0 == _movement) {
                 setMargins(0, 0)
@@ -149,11 +140,11 @@ class MainFragment : Fragment() {
 
     private fun initTapListeners() {
         Log.d(tag, "setTapListeners")
-        binding.timeviewParent.setOnClickListener {
+        binding.stopwatchParent.setOnClickListener {
             Log.d(tag, "OnClickTimeview")
             toggle()
         }
-        binding.timeviewParent.setOnLongClickListener {
+        binding.stopwatchParent.setOnLongClickListener {
             Log.d(tag, "onLongClickTimeview")
             reset()
             true
@@ -235,21 +226,9 @@ class MainFragment : Fragment() {
 
     private fun setClock(h: Int, m: Int, s: Int) {
         Log.d(tag, "setClock")
-        if (h != _lastH) {
-            Log.d(tag, "setClockH")
-            _binding?.timeviewH?.text = getString(R.string.clock_h, String.format("%d", h))
-            _lastH = h
-        }
-        if (m != _lastM) {
-            Log.d(tag, "setClockMm")
-            _binding?.timeviewMm?.text = getString(R.string.clock_mm, _sep, m, _sep)
-            _lastM = m
-        }
-        Log.d(tag, "setClockSs")
-        _binding?.timeviewSs?.text = getString(
-            R.string.clock_ss,
-            if (_showSecondsWhenStarted || (!isStarted() && _showSeconds)) String.format("%02d", s) else ""
-        )
+        _binding?.stopwatch?.text =
+            if (_showSeconds) getString(R.string.clock_h_mm_ss, h, m, s)
+            else getString(R.string.clock_h_mm, h, m)
     }
 
     private fun changeMargins() {
@@ -260,17 +239,15 @@ class MainFragment : Fragment() {
 
     private fun setMargins(h: Int, v: Int) {
         Log.d(tag, "setMargins")
-        val layoutParams = (_binding?.timeviewParent?.layoutParams as? MarginLayoutParams)
+        val layoutParams = (_binding?.stopwatchParent?.layoutParams as? MarginLayoutParams)
         layoutParams?.setMargins(h, v, -h, -v)
-        _binding?.timeviewParent?.layoutParams = layoutParams
+        _binding?.stopwatchParent?.layoutParams = layoutParams
     }
 
     private fun setColor(@ColorRes color: Int) {
         Log.d(tag, "setColor")
         val colorI = ContextCompat.getColor(requireActivity(), color)
-        _binding?.timeviewH?.setTextColor(colorI)
-        _binding?.timeviewMm?.setTextColor(colorI)
-        _binding?.timeviewSs?.setTextColor(colorI)
+        _binding?.stopwatch?.setTextColor(colorI)
     }
 
     private fun keepScreenOn() {
@@ -289,7 +266,6 @@ class MainFragment : Fragment() {
         Log.d(tag, "  _anteriority=" + _anteriority.toString())
         Log.d(tag, "  _showSeconds=" + _showSeconds.toString())
         Log.d(tag, "  _showSecondsWhenStarted=" + _showSecondsWhenStarted.toString())
-        Log.d(tag, "  _sep=$_sep")
         Log.d(tag, "  isStarted=" + isStarted().toString())
         Log.d(tag, "}")
     }

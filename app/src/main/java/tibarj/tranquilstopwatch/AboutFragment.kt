@@ -1,11 +1,11 @@
-package com.leanway.tranquilstopwatch
+package tibarj.tranquilstopwatch
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.leanway.tranquilstopwatch.databinding.AboutFragmentBinding
+import tibarj.tranquilstopwatch.databinding.AboutFragmentBinding
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -26,10 +26,6 @@ class AboutFragment : Fragment() {
         _binding = AboutFragmentBinding.inflate(inflater, container, false)
         return binding.root
 
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
     }
 
     override fun onDestroyView() {
