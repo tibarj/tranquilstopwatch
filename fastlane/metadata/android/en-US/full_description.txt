@@ -1,4 +1,4 @@
-Tranquil Stopwatch is a highly efficient and reliable stopwatch designed for extended use with minimal power consumption. It is particularly well-suited for non-interactive sessions, such as meditation or long periods where you cannot actively interact with your device but still need to track elapsed time and know the current time.
+Tranquil Stopwatch is a reliable stopwatch designed for extended use with minimal power consumption. It is particularly well-suited for non-interactive sessions, such as meditation or long periods where you cannot actively interact with your device but still need to track elapsed time and know the current time.
 
 **Key Features:**
 - **Power Efficiency**: Optimized for long-duration use, with a black AMOLED-friendly screen and no milliseconds display to minimize power consumption.

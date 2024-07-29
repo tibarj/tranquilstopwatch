@@ -1,1 +1,1 @@
-A reliable and power-efficient stopwatch with current time display, ideal for long sessions like meditation.
+Stopwatch with current time display for long, non-interactive sessions.
