@@ -28,7 +28,6 @@
     <string name="global_displacement_summary">内容每分钟移动一次</string>
 
     <string name="about_category_usage">说明</string>
-    <string name="about_category_version">版本</string>
     <string name="about_category_stats">统计数据</string>
 
     <string name="about_usage">开始/停止：点击\n重置：长按</string>

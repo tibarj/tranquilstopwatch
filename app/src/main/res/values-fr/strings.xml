@@ -28,7 +28,6 @@
     <string name="global_displacement_summary">Le contenu se déplace, chaque minute, avec une amplitude proportionnelle à cette valeur</string>
 
     <string name="about_category_usage">Utilisation</string>
-    <string name="about_category_version">Version</string>
     <string name="about_category_stats">Stats</string>
 
     <string name="about_usage">Démarrer/arrêter: appui court\nRéinitialiser: appui long</string>

@@ -9,6 +9,8 @@
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
 /.idea/deploymentTargetSelector.xml
+/.idea/copilot*
+/.idea/studiobot.xml
 .DS_Store
 /build
 /captures

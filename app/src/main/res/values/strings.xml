@@ -28,7 +28,6 @@
     <string name="global_displacement_summary">The content moves by this amount every minute</string>
 
     <string name="about_category_usage">Usage</string>
-    <string name="about_category_version">Version</string>
     <string name="about_category_stats">Stats</string>
 
     <string name="about_usage">Start/stop: tap\nReset: long tap</string>
