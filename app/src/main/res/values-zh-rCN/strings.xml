@@ -64,7 +64,6 @@
     <string name="beeper_help_offset">将提示音计划偏移此时间量。例如，周期=60秒，偏移=1秒时，提示音出现在61秒、121秒、181秒...</string>
     <string name="beeper_help_attenuation">音量（分贝）。0分贝=最大，-10分贝≈感知响度减半。</string>
     <string name="beeper_help_after">第一次提示音前的等待时间。</string>
-    <string name="beeper_help_waveform">声波形状：正弦波（平滑）、方波（尖锐）、三角波（平衡）、锯齿波（粗糙）。</string>
 
     <string name="beeper_waveform_sine">正弦波</string>
     <string name="beeper_waveform_square">方波</string>

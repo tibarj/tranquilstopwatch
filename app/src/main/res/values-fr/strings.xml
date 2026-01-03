@@ -66,7 +66,6 @@
     <string name="beeper_help_offset">Décale l\'horaire des bips de ce montant. Par exemple, avec période=60s et décalage=1s, les bips se produisent à 61s, 121s, 181s...</string>
     <string name="beeper_help_attenuation">Volume en décibels. 0dB = maximum, -10dB ≈ moitié moins fort (volume perçu).</string>
     <string name="beeper_help_after">Attendre ce délai avant que le premier bip ne commence.</string>
-    <string name="beeper_help_waveform">Forme de l\'onde sonore : Sinus (doux), Carré (net), Triangle (équilibré), Dent de scie (dur).</string>
 
     <string name="beeper_waveform_sine">Sinusoïdale</string>
     <string name="beeper_waveform_square">Carrée</string>

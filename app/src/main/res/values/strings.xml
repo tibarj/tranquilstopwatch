@@ -67,7 +67,6 @@
     <string name="beeper_help_offset">Shifts the beep schedule by this amount. For example, with period=60s and offset=1s, beeps occur at 61s, 121s, 181s...</string>
     <string name="beeper_help_attenuation">Volume in decibels. 0dB = maximum, -10dB ≈ half perceived loudness.</string>
     <string name="beeper_help_after">Wait this long before the first beep starts.</string>
-    <string name="beeper_help_waveform">Shape of the sound wave: Sine (smooth), Square (sharp), Triangle (balanced), Sawtooth (harsh).</string>
 
     <!-- Waveform types -->
     <string name="beeper_waveform_sine">Sine</string>
