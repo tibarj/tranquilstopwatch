@@ -26,7 +26,7 @@
             android:exported="false"
             android:label="@string/actionbar_settings"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/Theme.TranquilStopwatch" />
+            android:theme="@style/Theme.TranquilStopwatch.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
