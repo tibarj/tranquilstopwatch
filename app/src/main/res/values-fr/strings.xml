@@ -63,7 +63,7 @@
     <string name="beeper_help_repeat">Nombre de fois à biper. Utilisez 0 pour un bip infini.</string>
     <string name="beeper_help_frequency">Hauteur du son du bip en Hertz. Valeurs plus élevées = hauteur plus élevée.</string>
     <string name="beeper_help_duration">Longueur de chaque bip en millisecondes.</string>
-    <string name="beeper_help_offset">Décale l\'horaire des bips de ce montant. Par exemple, avec période=60s et décalage=1s, les bips se produisent à 61s, 121s, 181s...</string>
+    <string name="beeper_help_offset">Décale l\'horaire des bips de ce montant. Par exemple, avec période=60s et décalage=1s, les bips se produisent à 61s, 121s, 181s…</string>
     <string name="beeper_help_attenuation">Volume en décibels. 0dB = maximum, -10dB ≈ moitié moins fort (volume perçu).</string>
     <string name="beeper_help_after">Attendre ce délai avant que le premier bip ne commence.</string>
 

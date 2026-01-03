@@ -61,7 +61,7 @@
     <string name="beeper_help_repeat">提示音重复次数。使用0表示无限重复。</string>
     <string name="beeper_help_frequency">提示音的音调（赫兹）。数值越高，音调越高。</string>
     <string name="beeper_help_duration">每次提示音的长度（毫秒）。</string>
-    <string name="beeper_help_offset">将提示音计划偏移此时间量。例如，周期=60秒，偏移=1秒时，提示音出现在61秒、121秒、181秒...</string>
+    <string name="beeper_help_offset">将提示音计划偏移此时间量。例如，周期=60秒，偏移=1秒时，提示音出现在61秒、121秒、181秒…</string>
     <string name="beeper_help_attenuation">音量（分贝）。0分贝=最大，-10分贝≈感知响度减半。</string>
     <string name="beeper_help_after">第一次提示音前的等待时间。</string>
 
