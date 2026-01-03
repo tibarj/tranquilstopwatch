@@ -88,7 +88,7 @@
                         android:paddingRight="0dp"
                         android:layout_alignParentBottom="true"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/baseline_menu_24"
+                        android:src="@drawable/outline_menu_24"
                         app:tint="@color/icon_white" />
                 </RelativeLayout>
             </androidx.appcompat.widget.Toolbar>

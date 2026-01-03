@@ -22,6 +22,11 @@ class StopwatchFragment : Fragment() {
     private var _binding: StopwatchFragmentBinding? = null
     private var _enabled: Boolean = true
     private lateinit var _stopwatch: Stopwatch
+    private lateinit var _beeperManager: BeeperManager
+
+    // Next beep information
+    private var _nextBeepTimeMs: Long? = null
+    private var _nextBeepSounds: List<BeeperManager.BeepSound>? = null
 
     // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
@@ -36,8 +41,16 @@ class StopwatchFragment : Fragment() {
             "StopwatchFragment",
             Context.MODE_PRIVATE
         )
+        _beeperManager = BeeperManager(requireContext())
+        _beeperManager.onError = { message ->
+            // Show toast on error
+            android.widget.Toast.makeText(requireContext(), message, android.widget.Toast.LENGTH_SHORT).show()
+        }
         _stopwatch = Stopwatch (
-            _tick = { elapsed -> display(elapsed) },
+            _tick = { elapsed ->
+                display(elapsed)
+                checkAndTriggerBeeps(elapsed)
+            },
             _startedAt = _sharedPreferences.getLong("startedAt", 0L),
             _anteriority = _sharedPreferences.getLong("anteriority", 0L),
         )
@@ -51,6 +64,8 @@ class StopwatchFragment : Fragment() {
         Log.d(tag, "onStart")
         super.onStart()
 
+        _beeperManager.loadBeepers()
+        updateNextBeep()
         loadPref()
         logState()
 
@@ -178,10 +193,46 @@ class StopwatchFragment : Fragment() {
             apply()
         }
         _stopwatch.reset()
+        _beeperManager.reset()
+        updateNextBeep()
         saveInstanceState()
         unkeepScreenOn()
         setColor(R.color.red)
         setClock(0, 0, 0)
+    }
+
+    private fun updateNextBeep() {
+        val currentMs = _stopwatch.getElapsedMs()
+        val nextBeepInfo = _beeperManager.next(currentMs)
+        _nextBeepTimeMs = nextBeepInfo?.first // Already in ms
+        _nextBeepSounds = nextBeepInfo?.second
+        Log.d(tag, "beep_schedule: ${_nextBeepTimeMs}ms")
+        _nextBeepSounds?.forEachIndexed { index, sound ->
+            Log.d(tag, "  BeepSounds[$index] { frequencyHz: ${sound.frequencyHz}, durationMs: ${sound.durationMs}, attenuationDb: ${sound.attenuationDb} }")
+        }
+    }
+
+    private fun checkAndTriggerBeeps(elapsedMs: Long) {
+        val beepTimeMs = _nextBeepTimeMs
+
+        if (beepTimeMs != null && elapsedMs >= beepTimeMs) {
+            // We've reached or passed the beep time
+            val currentSec = elapsedMs / 1000
+            val beepSec = beepTimeMs / 1000
+
+            Log.d(tag, "checkAndTriggerBeeps: elapsedMs=$elapsedMs ($currentSec s), beepTimeMs=$beepTimeMs ($beepSec s), same second=${currentSec == beepSec}")
+
+            // Play if we're on the same second boundary
+            if (currentSec == beepSec) {
+                // Play all beeps scheduled for this time
+                _nextBeepSounds?.forEach { beepSound ->
+                    _beeperManager.beep(beepSound)
+                }
+            }
+
+            // Get next beep (next() recalculates on-demand)
+            updateNextBeep()
+        }
     }
 
     private fun display(elapsedMs: Long) {

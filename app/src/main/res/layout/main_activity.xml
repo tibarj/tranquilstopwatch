@@ -85,7 +85,7 @@
                         android:layout_marginEnd="@dimen/fab_margin"
                         android:layout_alignParentEnd="true"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/baseline_menu_24"
+                        android:src="@drawable/outline_menu_24"
                         app:tint="@color/icon_white" />
                 </RelativeLayout>
             </androidx.appcompat.widget.Toolbar>
@@ -97,7 +97,7 @@
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
-        android:layout_height="120dp"
+        android:layout_height="180dp"
         android:layout_gravity="end|bottom"
         android:layoutDirection="rtl"
         android:textDirection="rtl"

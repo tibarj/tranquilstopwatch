@@ -125,6 +125,11 @@ class MainActivity : AppCompatActivity() {
                     _binding.drawer.closeDrawer(GravityCompat.END)
                     true
                 }
+                R.id.nav_beeper -> {
+                    startActivity(Intent(this, BeeperActivity::class.java))
+                    _binding.drawer.closeDrawer(GravityCompat.END)
+                    true
+                }
                 R.id.nav_about -> {
                     startActivity(Intent(this, AboutActivity::class.java))
                     _binding.drawer.closeDrawer(GravityCompat.END)
@@ -197,9 +202,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun onMvtTimerTick() {
         Log.d(tag, "onMvtTimerTick")
-        if (null === _binding) {
-            return
-        }
         changeMargins()
         scheduleMvt()
     }

@@ -7,4 +7,9 @@
 
     <style name="Theme.TranquilStopwatch" parent="Base.Theme.TranquilStopwatch"></style>
 
+    <style name="Theme.TranquilStopwatch.NoActionBar" parent="Base.Theme.TranquilStopwatch">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
 </resources>
