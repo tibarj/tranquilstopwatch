@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
+import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import tibarj.tranquilstopwatch.databinding.StopwatchFragmentBinding
@@ -90,10 +91,9 @@ class StopwatchFragment : Fragment() {
     private fun saveInstanceState() {
         Log.d(tag, "saveInstanceState")
 
-        with(_sharedPreferences.edit()) {
+        _sharedPreferences.edit {
             putLong("startedAt", _stopwatch.startedAt)
             putLong("anteriority", _stopwatch.anteriority)
-            apply()
         }
         logState()
     }
@@ -185,12 +185,11 @@ class StopwatchFragment : Fragment() {
     private fun reset() {
         Log.d(tag, "reset")
 
-        with(_sharedPreferences.edit()) {
+        _sharedPreferences.edit {
             putLong(
                 "runtime",
                 _sharedPreferences.getLong("runtime", 0L) + _stopwatch.getElapsedMs()
             )
-            apply()
         }
         _stopwatch.reset()
         _beeperManager.reset()

@@ -3,6 +3,7 @@ package tibarj.tranquilstopwatch
 import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.edit
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -147,7 +148,6 @@ class BeeperActivity : AppCompatActivity() {
      */
     private fun saveBeepers() {
         val prefs = getSharedPreferences("BeeperActivity", Context.MODE_PRIVATE)
-        val editor = prefs.edit()
 
         // Save as JSON for predictable ordering
         val jsonArray = JSONArray()
@@ -166,8 +166,9 @@ class BeeperActivity : AppCompatActivity() {
             jsonArray.put(json)
         }
 
-        editor.putString("beepers_json", jsonArray.toString())
-        editor.apply()
+        prefs.edit {
+            putString("beepers_json", jsonArray.toString())
+        }
     }
 
     /**
