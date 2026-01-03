@@ -49,7 +49,7 @@
         app:layout_constraintTop_toBottomOf="@+id/switch_enabled"
         app:endIconMode="custom"
         app:endIconDrawable="@drawable/outline_info_24"
-        app:endIconContentDescription="Help">
+        app:endIconContentDescription="@string/beeper_help_icon_cd">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/input_period"
@@ -72,7 +72,7 @@
         app:layout_constraintTop_toBottomOf="@+id/switch_enabled"
         app:endIconMode="custom"
         app:endIconDrawable="@drawable/outline_info_24"
-        app:endIconContentDescription="Help">
+        app:endIconContentDescription="@string/beeper_help_icon_cd">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/input_times"
@@ -95,7 +95,7 @@
         app:layout_constraintTop_toBottomOf="@+id/input_period_layout"
         app:endIconMode="custom"
         app:endIconDrawable="@drawable/outline_info_24"
-        app:endIconContentDescription="Help">
+        app:endIconContentDescription="@string/beeper_help_icon_cd">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/input_frequency"
@@ -118,7 +118,7 @@
         app:layout_constraintTop_toBottomOf="@+id/input_period_layout"
         app:endIconMode="custom"
         app:endIconDrawable="@drawable/outline_info_24"
-        app:endIconContentDescription="Help">
+        app:endIconContentDescription="@string/beeper_help_icon_cd">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/input_duration"
@@ -141,7 +141,7 @@
         app:layout_constraintTop_toBottomOf="@+id/input_frequency_layout"
         app:endIconMode="custom"
         app:endIconDrawable="@drawable/outline_info_24"
-        app:endIconContentDescription="Help">
+        app:endIconContentDescription="@string/beeper_help_icon_cd">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/input_offset"
@@ -164,7 +164,7 @@
         app:layout_constraintTop_toBottomOf="@+id/input_frequency_layout"
         app:endIconMode="custom"
         app:endIconDrawable="@drawable/outline_info_24"
-        app:endIconContentDescription="Help">
+        app:endIconContentDescription="@string/beeper_help_icon_cd">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/input_after"
@@ -187,7 +187,7 @@
         app:layout_constraintTop_toBottomOf="@+id/input_offset_layout"
         app:endIconMode="custom"
         app:endIconDrawable="@drawable/outline_info_24"
-        app:endIconContentDescription="Help">
+        app:endIconContentDescription="@string/beeper_help_icon_cd">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/input_gain"

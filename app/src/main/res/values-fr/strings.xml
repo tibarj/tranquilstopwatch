@@ -7,8 +7,8 @@
 
     <string name="actionbar_settings">Paramètres</string>
 
-    <string name="about_placeholder">À propos</string>
-    <string name="settings_placeholder">Paramètres</string>
+    <!-- Accessibilité -->
+    <string name="cd_open_menu">Ouvrir le menu</string>
 
     <string name="settings_stopwatch_customization_category">Stopwatch</string>
     <string name="settings_clock_customization_category">Horloge</string>
@@ -55,6 +55,9 @@
     <string name="beeper_hint_attenuation">Atténuation (-100-0dB)</string>
     <string name="beeper_hint_after">Après (0-86400s)</string>
     <string name="beeper_hint_waveform">Forme d\'onde</string>
+
+    <!-- Accessibilité -->
+    <string name="beeper_help_icon_cd">Aide</string>
 
     <!-- Help descriptions for popups -->
     <string name="beeper_help_period">Intervalle de temps entre les bips. Par exemple, 60s signifie un bip chaque minute.</string>

@@ -7,8 +7,8 @@
 
     <string name="actionbar_settings">设置</string>
 
-    <string name="about_placeholder">关于</string>
-    <string name="settings_placeholder">设置</string>
+    <!-- 无障碍 -->
+    <string name="cd_open_menu">打开菜单</string>
 
     <string name="settings_stopwatch_customization_category">Stopwatch</string>
     <string name="settings_clock_customization_category">时钟</string>
@@ -53,6 +53,9 @@
     <string name="beeper_hint_attenuation">衰减 (-100-0分贝)</string>
     <string name="beeper_hint_after">延迟 (0-86400秒)</string>
     <string name="beeper_hint_waveform">波形</string>
+
+    <!-- 无障碍 -->
+    <string name="beeper_help_icon_cd">帮助</string>
 
     <!-- Help descriptions for popups -->
     <string name="beeper_help_period">提示音之间的时间间隔。例如，60秒表示每分钟一次提示音。</string>

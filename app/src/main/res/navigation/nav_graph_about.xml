@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/FirstFragment"
         android:name="tibarj.tranquilstopwatch.AboutFragment"
-        android:label="@string/first_fragment_label"
+        android:label="@string/actionbar_about"
         tools:layout="@layout/about_fragment">
     </fragment>
 </navigation>

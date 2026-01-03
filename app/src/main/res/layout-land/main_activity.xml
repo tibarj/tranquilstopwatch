@@ -80,7 +80,7 @@
                         android:id="@+id/menu_button"
                         android:layout_width="?attr/actionBarSize"
                         android:layout_height="?attr/actionBarSize"
-                        android:contentDescription="@string/settings_placeholder"
+                        android:contentDescription="@string/cd_open_menu"
                         android:background="@android:color/transparent"
                         android:layout_gravity="bottom|start"
                         android:layout_marginBottom="0dp"
