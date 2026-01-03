@@ -203,9 +203,8 @@ class BeeperAdapter(
             } else {
                 b.root.context.getString(R.string.beeper_delete)
             }
-            val errorColor = com.google.android.material.R.attr.colorError
             val errorColorValue = com.google.android.material.color.MaterialColors.getColor(
-                b.root.context, errorColor, android.graphics.Color.RED
+                b.root.context, com.google.android.material.R.attr.colorErrorContainer, android.graphics.Color.RED
             )
             b.btnDelete.setBackgroundColor(
                 if (isPending) errorColorValue else com.google.android.material.color.MaterialColors.getColor(
@@ -250,11 +249,11 @@ class BeeperAdapter(
         private fun updateToggleColor(switch: SwitchMaterial, enabled: Boolean) {
             val color = if (enabled) {
                 com.google.android.material.color.MaterialColors.getColor(
-                    switch.context, com.google.android.material.R.attr.colorPrimary, android.graphics.Color.GREEN
+                    switch.context, androidx.appcompat.R.attr.colorPrimary, android.graphics.Color.GREEN
                 )
             } else {
                 com.google.android.material.color.MaterialColors.getColor(
-                    switch.context, com.google.android.material.R.attr.colorError, android.graphics.Color.RED
+                    switch.context, com.google.android.material.R.attr.colorErrorContainer, android.graphics.Color.RED
                 )
             }
             switch.thumbTintList = android.content.res.ColorStateList.valueOf(color)
