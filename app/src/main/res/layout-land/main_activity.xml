@@ -7,15 +7,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="false"
-    android:background="@color/black"
     tools:context="tibarj.tranquilstopwatch.MainActivity">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="false"
-        android:background="@color/black">
+        android:fitsSystemWindows="false">
 
         <LinearLayout
             android:id="@+id/panel"

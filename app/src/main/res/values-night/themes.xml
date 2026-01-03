@@ -3,6 +3,7 @@
     <style name="Base.Theme.TranquilStopwatch" parent="Theme.Material3.DayNight">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="android:windowBackground">@color/black</item>
     </style>
 
 </resources>
