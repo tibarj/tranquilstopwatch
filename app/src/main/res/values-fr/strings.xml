@@ -46,13 +46,13 @@
 
     <string name="beeper_enabled">Activé</string>
 
-    <string name="beeper_hint_period">Période (60-86400s)</string>
-    <string name="beeper_hint_repeat">Répétitions (0-1000, 0=&#8734;)</string>
-    <string name="beeper_hint_frequency">Fréq. (10-9999Hz)</string>
-    <string name="beeper_hint_duration">Durée (1-999ms)</string>
-    <string name="beeper_hint_offset">Décalage (0-3600s)</string>
-    <string name="beeper_hint_attenuation">Atténuation (-100-0dB)</string>
-    <string name="beeper_hint_after">Après (0-86400s)</string>
+    <string name="beeper_hint_period">Période (60–86400s)</string>
+    <string name="beeper_hint_repeat">Répétitions (0–1000, 0=&#8734;)</string>
+    <string name="beeper_hint_frequency">Fréq. (10–9999Hz)</string>
+    <string name="beeper_hint_duration">Durée (1–999ms)</string>
+    <string name="beeper_hint_offset">Décalage (0–3600s)</string>
+    <string name="beeper_hint_attenuation">Atténuation (−100–0dB)</string>
+    <string name="beeper_hint_after">Après (0–86400s)</string>
     <string name="beeper_hint_waveform">Forme d\'onde</string>
 
     <!-- Accessibilité -->

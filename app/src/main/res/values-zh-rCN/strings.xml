@@ -44,13 +44,13 @@
 
     <string name="beeper_enabled">已启用</string>
 
-    <string name="beeper_hint_period">周期 (60-86400秒)</string>
-    <string name="beeper_hint_repeat">重复 (0-1000, 0=&#8734;)</string>
-    <string name="beeper_hint_frequency">频率 (10-9999Hz)</string>
-    <string name="beeper_hint_duration">持续时间 (1-999毫秒)</string>
-    <string name="beeper_hint_offset">偏移 (0-3600秒)</string>
-    <string name="beeper_hint_attenuation">衰减 (-100-0分贝)</string>
-    <string name="beeper_hint_after">延迟 (0-86400秒)</string>
+    <string name="beeper_hint_period">周期 (60–86400秒)</string>
+    <string name="beeper_hint_repeat">重复 (0–1000, 0=&#8734;)</string>
+    <string name="beeper_hint_frequency">频率 (10–9999Hz)</string>
+    <string name="beeper_hint_duration">持续时间 (1–999毫秒)</string>
+    <string name="beeper_hint_offset">偏移 (0–3600秒)</string>
+    <string name="beeper_hint_attenuation">衰减 (−100–0分贝)</string>
+    <string name="beeper_hint_after">延迟 (0–86400秒)</string>
     <string name="beeper_hint_waveform">波形</string>
 
     <!-- 无障碍 -->
