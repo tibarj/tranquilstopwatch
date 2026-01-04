@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup.MarginLayoutParams
 import android.view.ViewTreeObserver
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.core.view.WindowCompat
@@ -32,6 +33,8 @@ class MainActivity : AppCompatActivity() {
     private var _displacement: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Keep MainActivity dark even if the system theme is light.
+        delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
         Log.d(tag, "onCreate")
         super.onCreate(savedInstanceState)
 
