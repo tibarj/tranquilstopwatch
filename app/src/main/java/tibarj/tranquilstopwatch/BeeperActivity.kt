@@ -2,6 +2,7 @@ package tibarj.tranquilstopwatch
 
 import android.content.Context
 import android.os.Bundle
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
 import androidx.core.view.ViewCompat
@@ -82,6 +83,23 @@ class BeeperActivity : AppCompatActivity() {
         }
         ViewCompat.requestApplyInsets(recycler)
         beeperAdapter.submitList(beeperList.toList())
+
+        // Keep the FAB above the system navigation bar (and keyboard if shown)
+        val fab = binding.fabAddBeeper
+        val fabLayoutParams = fab.layoutParams as ViewGroup.MarginLayoutParams
+        val baseBottomMargin = fabLayoutParams.bottomMargin
+        ViewCompat.setOnApplyWindowInsetsListener(fab) { view, insets ->
+            val imeBottom = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom
+            val systemBottom = insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom
+            val insetBottom = maxOf(imeBottom, systemBottom)
+
+            val lp = view.layoutParams as ViewGroup.MarginLayoutParams
+            lp.bottomMargin = baseBottomMargin + insetBottom
+            view.layoutParams = lp
+
+            insets
+        }
+        ViewCompat.requestApplyInsets(fab)
 
         // --------------------------------------------------------------------
         // FAB – add a new beeper
