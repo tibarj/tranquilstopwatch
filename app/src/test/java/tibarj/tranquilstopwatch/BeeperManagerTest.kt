@@ -21,8 +21,9 @@ class BeeperManagerTest {
 
     @Test
     fun calculateOccurrences_noDelay_atFirstBeep() {
-        // At exactly 60s with 60s period: first beep occurs
-        assertEquals(1L, BeeperManager.calculateOccurrences(60, 0, 60))
+        // At exactly 60s with 60s period: first beep is scheduled at 60s,
+        // but is counted as occurred only after the boundary has passed.
+        assertEquals(0L, BeeperManager.calculateOccurrences(60, 0, 60))
     }
 
     @Test
@@ -52,8 +53,9 @@ class BeeperManagerTest {
 
     @Test
     fun calculateOccurrences_withDelay_atFirstBeep() {
-        // At exactly 30s with 30s delay: first beep occurs
-        assertEquals(1L, BeeperManager.calculateOccurrences(30, 30, 60))
+        // At exactly 30s with 30s delay: first beep is scheduled at 30s,
+        // but is counted as occurred only after the boundary has passed.
+        assertEquals(0L, BeeperManager.calculateOccurrences(30, 30, 60))
     }
 
     @Test
@@ -183,17 +185,17 @@ class BeeperManagerTest {
     fun scenario_hourlyBeep_1hour() {
         // Hourly beep (3600s period), at 1 hour (3600s)
         val occurrences = BeeperManager.calculateOccurrences(3600, 0, 3600)
-        assertEquals(1L, occurrences) // First beep at 3600s
+        assertEquals(0L, occurrences) // First beep is scheduled at 3600s
 
         val nextBeep = BeeperManager.calculateNextBeepTime(occurrences, 0, 3600)
-        assertEquals(7200L, nextBeep) // Next at 2 hours
+        assertEquals(3600L, nextBeep) // Next is still at 1 hour
     }
 
     @Test
     fun scenario_delayedStart_30secDelay_60secPeriod() {
         // Beep at 30s, then every 60s after
         assertEquals(0L, BeeperManager.calculateOccurrences(20, 30, 60))
-        assertEquals(1L, BeeperManager.calculateOccurrences(30, 30, 60))
+        assertEquals(0L, BeeperManager.calculateOccurrences(30, 30, 60))
         assertEquals(1L, BeeperManager.calculateOccurrences(60, 30, 60))
         assertEquals(2L, BeeperManager.calculateOccurrences(90, 30, 60))
         assertEquals(2L, BeeperManager.calculateOccurrences(120, 30, 60))

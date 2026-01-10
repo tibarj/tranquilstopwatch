@@ -38,6 +38,9 @@ class BeeperManager(private val context: Context) {
         const val SECONDS_PER_DAY = 86400L
         const val MAX_BEEPERS = 10
 
+        // Smooths the start/end of each beep to avoid clicks.
+        const val ATTACK_RELEASE_MS = 7
+
         /**
          * Calculate how many times a beeper has occurred by a given elapsed time.
          * Extracted for testability and clarity.
@@ -475,6 +478,14 @@ class BeeperManager(private val context: Context) {
         val numSamples = (durationMs * sampleRate) / 1000
         val samples = ShortArray(numSamples)
 
+        // Apply a short linear attack/release envelope to avoid slope discontinuities.
+        val rampSamplesRequested = (ATTACK_RELEASE_MS * sampleRate) / 1000
+        val rampSamples = when {
+            numSamples <= 1 -> 0
+            rampSamplesRequested <= 0 -> 0
+            else -> minOf(rampSamplesRequested, numSamples / 2)
+        }
+
         // Apply equal-loudness compensation
         val compensationDb = getEqualLoudnessCompensation(frequencyHz)
         val adjustedAttenuationDb = attenuationDb.toDouble() + compensationDb
@@ -486,7 +497,7 @@ class BeeperManager(private val context: Context) {
         // Generate waveform
         for (i in samples.indices) {
             val angle = 2.0 * PI * i / (sampleRate / frequencyHz.toDouble())
-            val sample = when (waveform) {
+            val baseSample = when (waveform) {
                 "square" -> if (sin(angle) >= 0) amplitude.toDouble() else -amplitude.toDouble()
                 "triangle" -> {
                     // Triangle wave: linear interpolation between -1 and 1
@@ -500,7 +511,19 @@ class BeeperManager(private val context: Context) {
                 }
                 else -> sin(angle) * amplitude // "sine" or default
             }
-            samples[i] = sample.toInt().toShort()
+
+            val envelope = if (rampSamples <= 1) {
+                1.0
+            } else {
+                when {
+                    i < rampSamples -> i.toDouble() / rampSamples.toDouble()
+                    i >= numSamples - rampSamples -> (numSamples - i - 1).toDouble() / rampSamples.toDouble()
+                    else -> 1.0
+                }
+            }
+
+            val sample = (baseSample * envelope).toInt().coerceIn(-MAX_AMPLITUDE, MAX_AMPLITUDE)
+            samples[i] = sample.toShort()
         }
 
         return samples

@@ -84,35 +84,45 @@ class BeeperActivity : AppCompatActivity() {
         ViewCompat.requestApplyInsets(recycler)
         beeperAdapter.submitList(beeperList.toList())
 
-        // Keep the FAB above the system navigation bar (and keyboard if shown)
-        val fab = binding.fabAddBeeper
-        val fabLayoutParams = fab.layoutParams as ViewGroup.MarginLayoutParams
-        val baseBottomMargin = fabLayoutParams.bottomMargin
-        ViewCompat.setOnApplyWindowInsetsListener(fab) { view, insets ->
-            val imeBottom = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom
-            val systemBottom = insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom
-            val insetBottom = maxOf(imeBottom, systemBottom)
+        // Keep the FABs above the system navigation bar (and keyboard if shown)
+        fun applyBottomInsetToFab(fab: android.view.View) {
+            val fabLayoutParams = fab.layoutParams as ViewGroup.MarginLayoutParams
+            val baseBottomMargin = fabLayoutParams.bottomMargin
+            ViewCompat.setOnApplyWindowInsetsListener(fab) { view, insets ->
+                val imeBottom = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom
+                val systemBottom = insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom
+                val insetBottom = maxOf(imeBottom, systemBottom)
 
-            val lp = view.layoutParams as ViewGroup.MarginLayoutParams
-            lp.bottomMargin = baseBottomMargin + insetBottom
-            view.layoutParams = lp
+                val lp = view.layoutParams as ViewGroup.MarginLayoutParams
+                lp.bottomMargin = baseBottomMargin + insetBottom
+                view.layoutParams = lp
 
-            insets
+                insets
+            }
+            ViewCompat.requestApplyInsets(fab)
         }
-        ViewCompat.requestApplyInsets(fab)
+        applyBottomInsetToFab(binding.fabAddBeeper)
+        applyBottomInsetToFab(binding.fabSaveBeepers)
 
         // --------------------------------------------------------------------
         // FAB – add a new beeper
         // --------------------------------------------------------------------
         binding.fabAddBeeper.setOnClickListener { addNewBeeper() }
+
+        // --------------------------------------------------------------------
+        // FAB – save beepers
+        // --------------------------------------------------------------------
+        binding.fabSaveBeepers.setOnClickListener {
+            // Ensure the currently edited field commits its value before saving.
+            currentFocus?.clearFocus()
+            binding.recyclerBeepers.clearFocus()
+            saveBeepers()
+            android.widget.Toast.makeText(this, R.string.beeper_saved, android.widget.Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onPause() {
-        // Ensure the currently edited field commits its value before saving.
-        currentFocus?.clearFocus()
-        binding.recyclerBeepers.clearFocus()
         super.onPause()
-        saveBeepers()
     }
 
     /** Insert a fresh Beeper with default values */

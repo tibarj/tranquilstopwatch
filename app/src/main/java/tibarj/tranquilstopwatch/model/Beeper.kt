@@ -22,7 +22,7 @@ data class Beeper(
         // Validation ranges
         const val MIN_FREQUENCY_HZ = 10
         const val MAX_FREQUENCY_HZ = 9999
-        const val MIN_DURATION_MS = 1
+        const val MIN_DURATION_MS = 30
         const val MAX_DURATION_MS = 999
         const val MIN_ATTENUATION_DB = -100
         const val MAX_ATTENUATION_DB = 0
@@ -30,7 +30,7 @@ data class Beeper(
         const val MAX_AFTER_SEC = 86400L
         const val MIN_REPEAT_TIMES = 0
         const val MAX_REPEAT_TIMES = 1000
-        const val MIN_PERIODICITY_SEC = 60L
+        const val MIN_PERIODICITY_SEC = 1L
         const val MAX_PERIODICITY_SEC = 86400L
         const val MIN_OFFSET_SEC = 0L
         const val MAX_OFFSET_SEC = 3600L

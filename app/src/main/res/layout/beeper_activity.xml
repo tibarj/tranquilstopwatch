@@ -40,4 +40,15 @@
         android:layout_margin="16dp"
         android:contentDescription="@string/beeper_add"
         app:srcCompat="@drawable/outline_add_24"/>
+
+    <!-- Floating‑action‑button to save beepers (left of the + FAB) -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_save_beepers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="88dp"
+        android:contentDescription="@string/beeper_save"
+        app:srcCompat="@drawable/outline_save_24"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
