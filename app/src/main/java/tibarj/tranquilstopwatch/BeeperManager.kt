@@ -29,6 +29,15 @@ class BeeperManager(private val context: Context) {
     private val audioExecutor: ExecutorService = Executors.newCachedThreadPool()
     private val mainHandler = Handler(Looper.getMainLooper())
 
+    // ---------------------------------------------------------------------
+    // Scheduling (driven by stopwatch elapsed time)
+    // ---------------------------------------------------------------------
+    private var elapsedMsProvider: (() -> Long)? = null
+    private var schedulerRunnable: Runnable? = null
+    private var schedulerIsScheduled: Boolean = false
+    private var scheduledBeepTimeMs: Long? = null
+    private var scheduledBeepSounds: List<BeepSound>? = null
+
     /** Callback for error notifications */
     var onError: ((message: String) -> Unit)? = null
 
@@ -55,12 +64,12 @@ class BeeperManager(private val context: Context) {
             return if (afterSec == 0L) {
                 // No initial delay: beeps at period+offset, 2*period+offset, 3*period+offset...
                 val firstBeepTime = periodicitySec + offsetSec
-                if (currentElapsedSec <= firstBeepTime) 0L
+                if (currentElapsedSec < firstBeepTime) 0L
                 else 1 + ((currentElapsedSec - firstBeepTime) / periodicitySec)
             } else {
                 // With initial delay: first at after+offset, then after+offset+period, after+offset+2*period...
                 val firstBeepTime = afterSec + offsetSec
-                if (currentElapsedSec <= firstBeepTime) 0L
+                if (currentElapsedSec < firstBeepTime) 0L
                 else 1 + ((currentElapsedSec - firstBeepTime) / periodicitySec)
             }
         }
@@ -180,6 +189,85 @@ class BeeperManager(private val context: Context) {
             }
         }
         Log.d(tag, "Loaded ${beepers.size} beepers")
+
+        // If we are currently scheduling beeps, recompute the next scheduled beep
+        // based on the updated configuration.
+        if (elapsedMsProvider != null) {
+            scheduleNextBeep()
+        }
+    }
+
+    /**
+     * Start internal beep scheduling.
+     *
+     * This makes beeps independent from the stopwatch display tick.
+     * The caller must ensure this is called only while the stopwatch is started,
+     * and must call [stopScheduling] when the stopwatch is stopped.
+     */
+    fun startScheduling(elapsedMsProvider: () -> Long) {
+        this.elapsedMsProvider = elapsedMsProvider
+        if (schedulerRunnable == null) {
+            schedulerRunnable = Runnable { onSchedulerTick() }
+        }
+        scheduleNextBeep()
+    }
+
+    /** Stop internal beep scheduling (no beeps will be triggered). */
+    fun stopScheduling() {
+        schedulerRunnable?.let { mainHandler.removeCallbacks(it) }
+        schedulerIsScheduled = false
+        scheduledBeepTimeMs = null
+        scheduledBeepSounds = null
+        elapsedMsProvider = null
+    }
+
+    private fun onSchedulerTick() {
+        schedulerIsScheduled = false
+
+        val provider = elapsedMsProvider ?: return
+        val elapsedMs = provider()
+        val targetMs = scheduledBeepTimeMs
+
+        if (targetMs == null) {
+            scheduleNextBeep()
+            return
+        }
+
+        // If we fired a bit early (timer jitter), just reschedule precisely.
+        if (elapsedMs < targetMs) {
+            scheduleNextBeep()
+            return
+        }
+
+        // Fire the beep(s) scheduled for this elapsed time.
+        scheduledBeepSounds?.forEach { beepSound ->
+            beep(beepSound)
+        }
+
+        scheduleNextBeep()
+    }
+
+    private fun scheduleNextBeep() {
+        val provider = elapsedMsProvider ?: return
+
+        // Cancel any pending tick before rescheduling.
+        schedulerRunnable?.let { mainHandler.removeCallbacks(it) }
+        schedulerIsScheduled = false
+
+        val elapsedMs = provider()
+        val nextBeepInfo = next(elapsedMs)
+        if (nextBeepInfo == null) {
+            scheduledBeepTimeMs = null
+            scheduledBeepSounds = null
+            return
+        }
+
+        scheduledBeepTimeMs = nextBeepInfo.first
+        scheduledBeepSounds = nextBeepInfo.second
+
+        val delayMs = (scheduledBeepTimeMs!! - elapsedMs).coerceAtLeast(0L)
+        schedulerIsScheduled = true
+        mainHandler.postDelayed(schedulerRunnable!!, delayMs)
     }
 
     /**
@@ -298,6 +386,7 @@ class BeeperManager(private val context: Context) {
      */
     fun cleanup() {
         Log.d(tag, "cleanup")
+        stopScheduling()
         audioExecutor.shutdown()
     }
 

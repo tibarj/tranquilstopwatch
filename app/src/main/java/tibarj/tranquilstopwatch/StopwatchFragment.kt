@@ -1,5 +1,6 @@
 package tibarj.tranquilstopwatch
 
+import android.media.AudioManager
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Typeface
@@ -25,10 +26,6 @@ class StopwatchFragment : Fragment() {
     private lateinit var _stopwatch: Stopwatch
     private lateinit var _beeperManager: BeeperManager
 
-    // Next beep information
-    private var _nextBeepTimeMs: Long? = null
-    private var _nextBeepSounds: List<BeeperManager.BeepSound>? = null
-
     // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
 
@@ -50,7 +47,6 @@ class StopwatchFragment : Fragment() {
         _stopwatch = Stopwatch (
             _tick = { elapsed ->
                 display(elapsed)
-                checkAndTriggerBeeps(elapsed)
             },
             _startedAt = _sharedPreferences.getLong("startedAt", 0L),
             _anteriority = _sharedPreferences.getLong("anteriority", 0L),
@@ -66,8 +62,8 @@ class StopwatchFragment : Fragment() {
         super.onStart()
 
         _beeperManager.loadBeepers()
-        updateNextBeep()
         loadPref()
+        updateVolumeKeyRouting()
         logState()
 
         display(_stopwatch.getElapsedMs())
@@ -75,8 +71,13 @@ class StopwatchFragment : Fragment() {
             keepScreenOn()
             setColor(R.color.white)
             _stopwatch.schedule()
+
+            // Beep timing must be independent from the stopwatch display tick.
+            // We drive it from the stopwatch elapsed time so pause/resume doesn't shift schedules.
+            _beeperManager.startScheduling { _stopwatch.getElapsedMs() }
         } else {
             setColor(R.color.red)
+            _beeperManager.stopScheduling()
         }
     }
 
@@ -85,7 +86,19 @@ class StopwatchFragment : Fragment() {
         super.onStop()
 
         _stopwatch.unschedule()
+        // Stopwatch may continue running in background, but the UI isn't visible.
+        // Stop beep scheduling so we don't play audio while backgrounded.
+        _beeperManager.stopScheduling()
+        // Restore default volume-key behavior when leaving this screen.
+        requireActivity().volumeControlStream = AudioManager.USE_DEFAULT_STREAM_TYPE
         unkeepScreenOn()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        // Prevent leaks / stray callbacks when fragment view goes away.
+        _beeperManager.cleanup()
+        _binding = null
     }
 
     private fun saveInstanceState() {
@@ -155,6 +168,7 @@ class StopwatchFragment : Fragment() {
     private fun start() {
         Log.d(tag, "start")
         _stopwatch.start()
+        _beeperManager.startScheduling { _stopwatch.getElapsedMs() }
         saveInstanceState()
         keepScreenOn()
         setColor(R.color.white)
@@ -165,6 +179,7 @@ class StopwatchFragment : Fragment() {
     private fun stop() {
         Log.d(tag, "stop")
         _stopwatch.stop()
+        _beeperManager.stopScheduling()
         saveInstanceState()
         unkeepScreenOn()
         setColor(R.color.red)
@@ -192,46 +207,12 @@ class StopwatchFragment : Fragment() {
             )
         }
         _stopwatch.reset()
+        _beeperManager.stopScheduling()
         _beeperManager.reset()
-        updateNextBeep()
         saveInstanceState()
         unkeepScreenOn()
         setColor(R.color.red)
         setClock(0, 0, 0)
-    }
-
-    private fun updateNextBeep() {
-        val currentMs = _stopwatch.getElapsedMs()
-        val nextBeepInfo = _beeperManager.next(currentMs)
-        _nextBeepTimeMs = nextBeepInfo?.first // Already in ms
-        _nextBeepSounds = nextBeepInfo?.second
-        Log.d(tag, "beep_schedule: ${_nextBeepTimeMs}ms")
-        _nextBeepSounds?.forEachIndexed { index, sound ->
-            Log.d(tag, "  BeepSounds[$index] { frequencyHz: ${sound.frequencyHz}, durationMs: ${sound.durationMs}, attenuationDb: ${sound.attenuationDb} }")
-        }
-    }
-
-    private fun checkAndTriggerBeeps(elapsedMs: Long) {
-        val beepTimeMs = _nextBeepTimeMs
-
-        if (beepTimeMs != null && elapsedMs >= beepTimeMs) {
-            // We've reached or passed the beep time
-            val currentSec = elapsedMs / 1000
-            val beepSec = beepTimeMs / 1000
-
-            Log.d(tag, "checkAndTriggerBeeps: elapsedMs=$elapsedMs ($currentSec s), beepTimeMs=$beepTimeMs ($beepSec s), same second=${currentSec == beepSec}")
-
-            // Play if we're on the same second boundary
-            if (currentSec == beepSec) {
-                // Play all beeps scheduled for this time
-                _nextBeepSounds?.forEach { beepSound ->
-                    _beeperManager.beep(beepSound)
-                }
-            }
-
-            // Get next beep (next() recalculates on-demand)
-            updateNextBeep()
-        }
     }
 
     private fun display(elapsedMs: Long) {
@@ -276,5 +257,21 @@ class StopwatchFragment : Fragment() {
         Log.d(tag, "  _showSeconds=${_stopwatch.everySecond}")
         Log.d(tag, "  isStarted=" + _stopwatch.isStarted().toString())
         Log.d(tag, "}")
+    }
+
+    private fun updateVolumeKeyRouting() {
+        val pref = PreferenceManager.getDefaultSharedPreferences(requireActivity())
+        val overrideSilent = pref.getBoolean(
+            getString(R.string.beeper_override_silent_key),
+            resources.getBoolean(R.bool.default_beeper_override_silent)
+        )
+
+        // BeeperManager uses AudioAttributes.USAGE_ALARM (override) or USAGE_NOTIFICATION (respect silent).
+        // Route hardware volume keys to the same stream while this fragment is visible.
+        requireActivity().volumeControlStream = if (overrideSilent) {
+            AudioManager.STREAM_ALARM
+        } else {
+            AudioManager.STREAM_NOTIFICATION
+        }
     }
 }
