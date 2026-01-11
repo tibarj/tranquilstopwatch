@@ -55,6 +55,9 @@
     <string name="beeper_hint_after">Après (0–86400s)</string>
     <string name="beeper_hint_waveform">Forme d\'onde</string>
 
+    <string name="beeper_save">Sauvegarder</string>
+    <string name="beeper_saved">Sauvegardé</string>
+
     <!-- Accessibilité -->
     <string name="beeper_help_icon_cd">Aide</string>
 

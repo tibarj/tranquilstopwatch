@@ -52,14 +52,13 @@
     <string name="beeper_hint_repeat">Repeat (0–1000, 0=&#8734;)</string>
     <string name="beeper_hint_frequency">Freq. (10–9999Hz)</string>
     <string name="beeper_hint_duration">Duration (30–999ms)</string>
-
-    <string name="beeper_save">Save</string>
-    <string name="beeper_saved">Saved</string>
     <string name="beeper_hint_offset">Offset (0–3600s)</string>
     <string name="beeper_hint_attenuation">Atten. (−100–0dB)</string>
     <string name="beeper_hint_after">After (0–86400s)</string>
     <string name="beeper_hint_waveform">Waveform</string>
 
+    <string name="beeper_save">Save</string>
+    <string name="beeper_saved">Saved</string>
     <string name="beeper_help_icon_cd">Help</string>
 
     <!-- Help descriptions for popups -->

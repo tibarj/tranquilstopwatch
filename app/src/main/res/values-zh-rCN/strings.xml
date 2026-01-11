@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">宁静秒表</string>
-    <!--    <string name="action_settings">设置</string>-->
+    <!-- <string name="action_settings">设置</string> -->
     <string name="actionbar_about">关于</string>
     <string name="actionbar_beeper">Beeper</string>
 
@@ -9,34 +9,40 @@
     <!-- 无障碍 -->
     <string name="cd_open_menu">打开菜单</string>
 
-    <string name="settings_stopwatch_customization_category">Stopwatch</string>
+    <!-- 设置分类 -->
+    <string name="settings_stopwatch_customization_category">秒表</string>
     <string name="settings_clock_customization_category">时钟</string>
     <string name="settings_beeper_customization_category">蜂鸣器</string>
-    <string name="settings_global_customization_category">屏幕保护</string>
+    <string name="settings_global_customization_category">全局</string>
 
-    <string name="stopwatch_enabled_title">启用</string>
+    <!-- 秒表设置项 -->
+    <string name="stopwatch_enabled_title">启用秒表</string>
     <string name="stopwatch_show_seconds_title">显示秒数</string>
-    <string name="stopwatch_font_thin_title">细字体</string>
-    <string name="stopwatch_opacity_title">不透明度</string>
+    <string name="stopwatch_font_thin_title">使用细体</string>
+    <string name="stopwatch_opacity_title">透明度</string>
     <string name="stopwatch_size_title">尺寸</string>
 
-    <string name="clock_enabled_title">启用</string>
-    <string name="clock_font_thin_title">细字体</string>
-    <string name="clock_opacity_title">不透明度</string>
+    <!-- 时钟设置项 -->
+    <string name="clock_enabled_title">启用时钟</string>
+    <string name="clock_font_thin_title">使用细体</string>
+    <string name="clock_opacity_title">透明度</string>
     <string name="clock_size_title">尺寸</string>
 
-    <string name="global_displacement_title">屏幕老化保护</string>
-    <string name="global_displacement_summary">内容每分钟移动一次</string>
+    <!-- 全局设置项 -->
+    <string name="global_displacement_title">防烧屏保护</string>
+    <string name="global_displacement_summary">内容每隔一分钟移动指定距离，防止屏幕老化</string>
 
     <string name="beeper_override_silent_title">忽略静音模式</string>
     <string name="beeper_override_silent_summary">即使在静音模式下也播放蜂鸣声（类似闹钟）</string>
 
-    <string name="about_category_usage">说明</string>
-    <string name="about_category_stats">统计数据</string>
+    <!-- 关于页面分类 -->
+    <string name="about_category_usage">使用说明</string>
+    <string name="about_category_stats">使用统计</string>
 
-    <string name="about_usage">开始/停止：点击\n重置：长按</string>
+    <!-- 关于页面内容 -->
+    <string name="about_usage">开始/暂停：轻触\n重置：长按</string>
     <plurals name="about_runtime">
-        <item quantity="other">总运行时间：%d小时</item>
+        <item quantity="other">累计运行：%d 小时</item>
     </plurals>
 
     <string name="beeper_title">蜂鸣器构建器</string>
@@ -52,6 +58,9 @@
     <string name="beeper_hint_attenuation">衰减 (−100–0分贝)</string>
     <string name="beeper_hint_after">延迟 (0–86400秒)</string>
     <string name="beeper_hint_waveform">波形</string>
+
+    <string name="beeper_save">保存</string>
+    <string name="beeper_saved">已保存</string>
 
     <!-- 无障碍 -->
     <string name="beeper_help_icon_cd">帮助</string>
