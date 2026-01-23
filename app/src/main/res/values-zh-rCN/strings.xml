@@ -1,17 +1,18 @@
 <resources>
-    <string name="app_name">静默秒表</string>
+    <string name="app_name">宁静秒表</string>
     <!-- <string name="action_settings">设置</string> -->
-    <string name="first_fragment_label"></string>
     <string name="actionbar_about">关于</string>
+    <string name="actionbar_beeper">Beeper</string>
 
     <string name="actionbar_settings">设置</string>
 
-    <string name="about_placeholder">关于</string>
-    <string name="settings_placeholder">设置</string>
+    <!-- 无障碍 -->
+    <string name="cd_open_menu">打开菜单</string>
 
     <!-- 设置分类 -->
     <string name="settings_stopwatch_customization_category">秒表</string>
     <string name="settings_clock_customization_category">时钟</string>
+    <string name="settings_beeper_customization_category">蜂鸣器</string>
     <string name="settings_global_customization_category">全局</string>
 
     <!-- 秒表设置项 -->
@@ -31,17 +32,58 @@
     <string name="global_displacement_title">防烧屏保护</string>
     <string name="global_displacement_summary">内容每隔一分钟移动指定距离，防止屏幕老化</string>
 
+    <string name="beeper_override_silent_title">忽略静音模式</string>
+    <string name="beeper_override_silent_summary">即使在静音模式下也播放蜂鸣声（类似闹钟）</string>
+
     <!-- 关于页面分类 -->
     <string name="about_category_usage">使用说明</string>
-    <string name="about_category_version">版本信息</string>
     <string name="about_category_stats">使用统计</string>
 
     <!-- 关于页面内容 -->
     <string name="about_usage">开始/暂停：轻触\n重置：长按</string>
     <plurals name="about_runtime">
-        <item quantity="one">累计运行：%d 小时</item>
         <item quantity="other">累计运行：%d 小时</item>
     </plurals>
-    <!-- <string name="next">下一步</string> -->
-    <!-- <string name="previous">上一步</string> -->
+
+    <string name="beeper_title">蜂鸣器构建器</string>
+    <string name="beeper_add">添加蜂鸣器</string>
+
+    <string name="beeper_enabled">已启用</string>
+
+    <string name="beeper_hint_period">周期 (1–86400秒)</string>
+    <string name="beeper_hint_repeat">重复 (0–1000, 0=&#8734;)</string>
+    <string name="beeper_hint_frequency">频率 (10–9999Hz)</string>
+    <string name="beeper_hint_duration">持续时间 (30–999毫秒)</string>
+    <string name="beeper_hint_offset">偏移 (0–3600秒)</string>
+    <string name="beeper_hint_attenuation">衰减 (−100–0分贝)</string>
+    <string name="beeper_hint_after">延迟 (0–86400秒)</string>
+    <string name="beeper_hint_waveform">波形</string>
+
+    <string name="beeper_save">保存</string>
+    <string name="beeper_saved">已保存</string>
+
+    <!-- 无障碍 -->
+    <string name="beeper_help_icon_cd">帮助</string>
+
+    <!-- Help descriptions for popups -->
+    <string name="beeper_help_period">提示音之间的时间间隔。例如，60秒表示每分钟一次提示音。</string>
+    <string name="beeper_help_repeat">提示音重复次数。使用0表示无限重复。</string>
+    <string name="beeper_help_frequency">提示音的音调（赫兹）。数值越高，音调越高。</string>
+    <string name="beeper_help_duration">每次提示音的长度（毫秒）。</string>
+    <string name="beeper_help_offset">将提示音计划偏移此时间量。例如，周期=60秒，偏移=1秒时，提示音出现在61秒、121秒、181秒…</string>
+    <string name="beeper_help_attenuation">音量（分贝）。0分贝=最大，-10分贝≈感知响度减半。</string>
+    <string name="beeper_help_after">第一次提示音前的等待时间。</string>
+
+    <string name="beeper_waveform_sine">正弦波</string>
+    <string name="beeper_waveform_square">方波</string>
+    <string name="beeper_waveform_triangle">三角波</string>
+    <string name="beeper_waveform_sawtooth">锯齿波</string>
+
+    <string name="beeper_delete">删除</string>
+    <string name="beeper_confirm_delete">确认删除</string>
+
+    <!-- Toast messages -->
+    <plurals name="beeper_max_limit">
+        <item quantity="other">最多允许%d个蜂鸣器</item>
+    </plurals>
 </resources>

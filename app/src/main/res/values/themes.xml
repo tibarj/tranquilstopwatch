@@ -3,8 +3,25 @@
     <style name="Base.Theme.TranquilStopwatch" parent="Theme.Material3.DayNight">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:windowBackground">?attr/colorSurface</item>
     </style>
 
-    <style name="Theme.TranquilStopwatch" parent="Base.Theme.TranquilStopwatch"></style>
+    <style name="Theme.TranquilStopwatch" parent="Base.Theme.TranquilStopwatch">
+        <!-- Transparent system bars for edge-to-edge. -->
+        <!-- <item name="android:navigationBarColor">@android:color/transparent</item> -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
+    </style>
+
+    <!-- MainActivity should always be black/dark, regardless of system theme. -->
+    <style name="Theme.TranquilStopwatch.Main" parent="Theme.TranquilStopwatch">
+        <item name="android:windowBackground">@color/black</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <style name="Theme.TranquilStopwatch.NoActionBar" parent="Theme.TranquilStopwatch">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 
 </resources>

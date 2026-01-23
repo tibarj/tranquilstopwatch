@@ -1,16 +1,17 @@
 <resources>
     <string name="app_name">Tranquil Stopwatch</string>
     <!--    <string name="action_settings">Settings</string>-->
-    <string name="first_fragment_label"></string>
     <string name="actionbar_about">À propos</string>
+    <string name="actionbar_beeper">Beeper</string>
 
     <string name="actionbar_settings">Paramètres</string>
 
-    <string name="about_placeholder">À propos</string>
-    <string name="settings_placeholder">Paramètres</string>
+    <!-- Accessibilité -->
+    <string name="cd_open_menu">Ouvrir le menu</string>
 
     <string name="settings_stopwatch_customization_category">Stopwatch</string>
     <string name="settings_clock_customization_category">Horloge</string>
+    <string name="settings_beeper_customization_category">Beeper</string>
     <string name="settings_global_customization_category">Global</string>
 
     <string name="stopwatch_enabled_title">Activé</string>
@@ -27,8 +28,10 @@
     <string name="global_displacement_title">Protection contre les brûlures d\'écran</string>
     <string name="global_displacement_summary">Le contenu se déplace, chaque minute, avec une amplitude proportionnelle à cette valeur</string>
 
+    <string name="beeper_override_silent_title">Ignorer le mode silencieux</string>
+    <string name="beeper_override_silent_summary">Jouer les bips même en mode silencieux (comme les alarmes)</string>
+
     <string name="about_category_usage">Utilisation</string>
-    <string name="about_category_version">Version</string>
     <string name="about_category_stats">Stats</string>
 
     <string name="about_usage">Démarrer/arrêter: appui court\nRéinitialiser: appui long</string>
@@ -37,6 +40,48 @@
         <item quantity="many">Durée d\'exécution totale : %d heures</item>
         <item quantity="other">Durée d\'exécution totale : %d heures</item>
     </plurals>
-    <!--    <string name="next">Next</string>-->
-    <!--    <string name="previous">Previous</string>-->
+
+    <string name="beeper_title">Beepers</string>
+    <string name="beeper_add">Ajouter un beeper</string>
+
+    <string name="beeper_enabled">Activé</string>
+
+    <string name="beeper_hint_period">Période (1–86400s)</string>
+    <string name="beeper_hint_repeat">Répétitions (0–1000, 0=&#8734;)</string>
+    <string name="beeper_hint_frequency">Fréq. (10–9999Hz)</string>
+    <string name="beeper_hint_duration">Durée (30–999ms)</string>
+    <string name="beeper_hint_offset">Décalage (0–3600s)</string>
+    <string name="beeper_hint_attenuation">Atténuation (−100–0dB)</string>
+    <string name="beeper_hint_after">Après (0–86400s)</string>
+    <string name="beeper_hint_waveform">Forme d\'onde</string>
+
+    <string name="beeper_save">Sauvegarder</string>
+    <string name="beeper_saved">Sauvegardé</string>
+
+    <!-- Accessibilité -->
+    <string name="beeper_help_icon_cd">Aide</string>
+
+    <!-- Help descriptions for popups -->
+    <string name="beeper_help_period">Intervalle de temps entre les bips. Par exemple, 60s signifie un bip chaque minute.</string>
+    <string name="beeper_help_repeat">Nombre de fois à biper. Utilisez 0 pour un bip infini.</string>
+    <string name="beeper_help_frequency">Hauteur du son du bip en Hertz. Valeurs plus élevées = hauteur plus élevée.</string>
+    <string name="beeper_help_duration">Longueur de chaque bip en millisecondes.</string>
+    <string name="beeper_help_offset">Décale l\'horaire des bips de ce montant. Par exemple, avec période=60s et décalage=1s, les bips se produisent à 61s, 121s, 181s…</string>
+    <string name="beeper_help_attenuation">Volume en décibels. 0dB = maximum, -10dB ≈ moitié moins fort (volume perçu).</string>
+    <string name="beeper_help_after">Attendre ce délai avant que le premier bip ne commence.</string>
+
+    <string name="beeper_waveform_sine">Sinusoïdale</string>
+    <string name="beeper_waveform_square">Carrée</string>
+    <string name="beeper_waveform_triangle">Triangulaire</string>
+    <string name="beeper_waveform_sawtooth">Dent de scie</string>
+
+    <string name="beeper_delete">Supprimer</string>
+    <string name="beeper_confirm_delete">Confirmer la suppression</string>
+
+    <!-- Toast messages -->
+    <plurals name="beeper_max_limit">
+        <item quantity="one">Maximum %d beeper autorisé</item>
+        <item quantity="other">Maximum %d beepers autorisés</item>
+        <item quantity="many">Maximum %d beepers autorisés</item>
+    </plurals>
 </resources>

@@ -1,16 +1,17 @@
 <resources>
     <string name="app_name">Tranquil Stopwatch</string>
     <!--    <string name="action_settings">Settings</string>-->
-    <string name="first_fragment_label"></string>
     <string name="actionbar_about">About</string>
+    <string name="actionbar_beeper">Beeper</string>
 
     <string name="actionbar_settings">Settings</string>
 
-    <string name="about_placeholder">about</string>
-    <string name="settings_placeholder">settings</string>
+    <!-- Accessibility -->
+    <string name="cd_open_menu">Open menu</string>
 
     <string name="settings_stopwatch_customization_category">Stopwatch</string>
     <string name="settings_clock_customization_category">Clock</string>
+    <string name="settings_beeper_customization_category">Beeper</string>
     <string name="settings_global_customization_category">Global</string>
 
     <string name="stopwatch_enabled_title">Enabled</string>
@@ -27,8 +28,10 @@
     <string name="global_displacement_title">Screen burn-in protection</string>
     <string name="global_displacement_summary">The content moves by this amount every minute</string>
 
+    <string name="beeper_override_silent_title">Override silent mode</string>
+    <string name="beeper_override_silent_summary">Play beeps even when phone is silent (like alarms)</string>
+
     <string name="about_category_usage">Usage</string>
-    <string name="about_category_version">Version</string>
     <string name="about_category_stats">Stats</string>
 
     <string name="about_usage">Start/stop: tap\nReset: long tap</string>
@@ -36,6 +39,50 @@
         <item quantity="one">Total runtime: %d hour</item>
         <item quantity="other">Total runtime: %d hours</item>
     </plurals>
-    <!--    <string name="next">Next</string>-->
-    <!--    <string name="previous">Previous</string>-->
+
+    <!-- Activity / toolbar -->
+    <string name="beeper_title">Beepers</string>
+    <string name="beeper_add">Add beeper</string>
+
+    <!-- Switch -->
+    <string name="beeper_enabled">Enabled</string>
+
+    <!-- Text‑field hints -->
+    <string name="beeper_hint_period">Period (1–86400s)</string>
+    <string name="beeper_hint_repeat">Repeat (0–1000, 0=&#8734;)</string>
+    <string name="beeper_hint_frequency">Freq. (10–9999Hz)</string>
+    <string name="beeper_hint_duration">Duration (30–999ms)</string>
+    <string name="beeper_hint_offset">Offset (0–3600s)</string>
+    <string name="beeper_hint_attenuation">Atten. (−100–0dB)</string>
+    <string name="beeper_hint_after">After (0–86400s)</string>
+    <string name="beeper_hint_waveform">Waveform</string>
+
+    <string name="beeper_save">Save</string>
+    <string name="beeper_saved">Saved</string>
+    <string name="beeper_help_icon_cd">Help</string>
+
+    <!-- Help descriptions for popups -->
+    <string name="beeper_help_period">Time interval between beeps. For example, 60s means a beep every minute.</string>
+    <string name="beeper_help_repeat">How many times to beep. Use 0 for infinite beeping.</string>
+    <string name="beeper_help_frequency">Pitch of the beep sound in Hertz. Higher values = higher pitch.</string>
+    <string name="beeper_help_duration">Length of each beep in milliseconds.</string>
+    <string name="beeper_help_offset">Shifts the beep schedule by this amount. For example, with period=60s and offset=1s, beeps occur at 61s, 121s, 181s…</string>
+    <string name="beeper_help_attenuation">Volume in decibels. 0dB = maximum, -10dB ≈ half perceived loudness.</string>
+    <string name="beeper_help_after">Wait this long before the first beep starts.</string>
+
+    <!-- Waveform types -->
+    <string name="beeper_waveform_sine">Sine</string>
+    <string name="beeper_waveform_square">Square</string>
+    <string name="beeper_waveform_triangle">Triangle</string>
+    <string name="beeper_waveform_sawtooth">Sawtooth</string>
+
+    <!-- Delete button -->
+    <string name="beeper_delete">Delete</string>
+    <string name="beeper_confirm_delete">Confirm Delete</string>
+
+    <!-- Toast messages -->
+    <plurals name="beeper_max_limit">
+        <item quantity="one">Maximum %d beeper allowed</item>
+        <item quantity="other">Maximum %d beepers allowed</item>
+    </plurals>
 </resources>

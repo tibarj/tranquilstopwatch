@@ -3,6 +3,4 @@
     <string name="clock_hh_mm">%1$s:%2$s</string>
     <string name="clock_h_mm">%1$d:%2$02d</string>
     <string name="clock_h_mm_ss">%1$d:%2$02d:%3$02d</string>
-
-    <string name="version">1.10.1</string>
 </resources>

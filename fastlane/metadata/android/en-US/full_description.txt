@@ -7,3 +7,4 @@ Tranquil Stopwatch is a reliable stopwatch designed for extended use with minima
 - **Simple Operation**: Easily pause, resume, and reset the timer; no additional features like laps.
 - **Current Clock Display**: Shows the current time in addition to the stopwatch, perfect for sessions where constant interaction is not possible.
 - **No Disruptions**: The app does not interrupt you with advertisements, review requests, or other prompts, ensuring a smooth and distraction-free experience.
+- **Optional Audio Beepers**: Create audio alerts during your stopwatch sessions to keep track of the elapsed time without watching the screen.

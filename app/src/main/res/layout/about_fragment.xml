@@ -39,36 +39,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textview_usage_category"
-            app:layout_constraintBottom_toTopOf="@+id/textview_version_category" />
-
-        <TextView
-            android:id="@+id/textview_version_category"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/about_category_version"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textAllCaps="true"
-            android:padding="16dp"
-            android:paddingStart="45dp"
-            android:paddingEnd="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textview_usage"
-            app:layout_constraintBottom_toTopOf="@+id/textview_version" />
-
-        <TextView
-            android:id="@+id/textview_version"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="45dp"
-            android:paddingEnd="5dp"
-            android:paddingBottom="20dp"
-            android:text="@string/version"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textview_version_category"
             app:layout_constraintBottom_toTopOf="@+id/textview_stats_category" />
 
         <TextView
@@ -84,7 +54,7 @@
             android:paddingEnd="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textview_version"
+            app:layout_constraintTop_toBottomOf="@+id/textview_usage"
             app:layout_constraintBottom_toTopOf="@+id/textview_runtime" />
 
         <TextView

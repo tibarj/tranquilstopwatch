@@ -1,5 +1,6 @@
 package tibarj.tranquilstopwatch
 
+import android.media.AudioManager
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Typeface
@@ -10,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
+import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import tibarj.tranquilstopwatch.databinding.StopwatchFragmentBinding
@@ -22,6 +24,7 @@ class StopwatchFragment : Fragment() {
     private var _binding: StopwatchFragmentBinding? = null
     private var _enabled: Boolean = true
     private lateinit var _stopwatch: Stopwatch
+    private lateinit var _beeperManager: BeeperManager
 
     // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
@@ -36,8 +39,15 @@ class StopwatchFragment : Fragment() {
             "StopwatchFragment",
             Context.MODE_PRIVATE
         )
+        _beeperManager = BeeperManager(requireContext())
+        _beeperManager.onError = { message ->
+            // Show toast on error
+            android.widget.Toast.makeText(requireContext(), message, android.widget.Toast.LENGTH_SHORT).show()
+        }
         _stopwatch = Stopwatch (
-            _tick = { elapsed -> display(elapsed) },
+            _tick = { elapsed ->
+                display(elapsed)
+            },
             _startedAt = _sharedPreferences.getLong("startedAt", 0L),
             _anteriority = _sharedPreferences.getLong("anteriority", 0L),
         )
@@ -51,7 +61,9 @@ class StopwatchFragment : Fragment() {
         Log.d(tag, "onStart")
         super.onStart()
 
+        _beeperManager.loadBeepers()
         loadPref()
+        updateVolumeKeyRouting()
         logState()
 
         display(_stopwatch.getElapsedMs())
@@ -59,8 +71,13 @@ class StopwatchFragment : Fragment() {
             keepScreenOn()
             setColor(R.color.white)
             _stopwatch.schedule()
+
+            // Beep timing must be independent from the stopwatch display tick.
+            // We drive it from the stopwatch elapsed time so pause/resume doesn't shift schedules.
+            _beeperManager.startScheduling { _stopwatch.getElapsedMs() }
         } else {
             setColor(R.color.red)
+            _beeperManager.stopScheduling()
         }
     }
 
@@ -69,16 +86,27 @@ class StopwatchFragment : Fragment() {
         super.onStop()
 
         _stopwatch.unschedule()
+        // Stopwatch may continue running in background, but the UI isn't visible.
+        // Stop beep scheduling so we don't play audio while backgrounded.
+        _beeperManager.stopScheduling()
+        // Restore default volume-key behavior when leaving this screen.
+        requireActivity().volumeControlStream = AudioManager.USE_DEFAULT_STREAM_TYPE
         unkeepScreenOn()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        // Prevent leaks / stray callbacks when fragment view goes away.
+        _beeperManager.cleanup()
+        _binding = null
     }
 
     private fun saveInstanceState() {
         Log.d(tag, "saveInstanceState")
 
-        with(_sharedPreferences.edit()) {
+        _sharedPreferences.edit {
             putLong("startedAt", _stopwatch.startedAt)
             putLong("anteriority", _stopwatch.anteriority)
-            apply()
         }
         logState()
     }
@@ -140,6 +168,7 @@ class StopwatchFragment : Fragment() {
     private fun start() {
         Log.d(tag, "start")
         _stopwatch.start()
+        _beeperManager.startScheduling { _stopwatch.getElapsedMs() }
         saveInstanceState()
         keepScreenOn()
         setColor(R.color.white)
@@ -150,6 +179,7 @@ class StopwatchFragment : Fragment() {
     private fun stop() {
         Log.d(tag, "stop")
         _stopwatch.stop()
+        _beeperManager.stopScheduling()
         saveInstanceState()
         unkeepScreenOn()
         setColor(R.color.red)
@@ -170,14 +200,15 @@ class StopwatchFragment : Fragment() {
     private fun reset() {
         Log.d(tag, "reset")
 
-        with(_sharedPreferences.edit()) {
+        _sharedPreferences.edit {
             putLong(
                 "runtime",
                 _sharedPreferences.getLong("runtime", 0L) + _stopwatch.getElapsedMs()
             )
-            apply()
         }
         _stopwatch.reset()
+        _beeperManager.stopScheduling()
+        _beeperManager.reset()
         saveInstanceState()
         unkeepScreenOn()
         setColor(R.color.red)
@@ -226,5 +257,21 @@ class StopwatchFragment : Fragment() {
         Log.d(tag, "  _showSeconds=${_stopwatch.everySecond}")
         Log.d(tag, "  isStarted=" + _stopwatch.isStarted().toString())
         Log.d(tag, "}")
+    }
+
+    private fun updateVolumeKeyRouting() {
+        val pref = PreferenceManager.getDefaultSharedPreferences(requireActivity())
+        val overrideSilent = pref.getBoolean(
+            getString(R.string.beeper_override_silent_key),
+            resources.getBoolean(R.bool.default_beeper_override_silent)
+        )
+
+        // BeeperManager uses AudioAttributes.USAGE_ALARM (override) or USAGE_NOTIFICATION (respect silent).
+        // Route hardware volume keys to the same stream while this fragment is visible.
+        requireActivity().volumeControlStream = if (overrideSilent) {
+            AudioManager.STREAM_ALARM
+        } else {
+            AudioManager.STREAM_NOTIFICATION
+        }
     }
 }

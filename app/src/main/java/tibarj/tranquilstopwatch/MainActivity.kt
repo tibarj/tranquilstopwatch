@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup.MarginLayoutParams
 import android.view.ViewTreeObserver
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.core.view.WindowCompat
@@ -32,6 +33,8 @@ class MainActivity : AppCompatActivity() {
     private var _displacement: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Keep MainActivity dark even if the system theme is light.
+        delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
         Log.d(tag, "onCreate")
         super.onCreate(savedInstanceState)
 
@@ -125,6 +128,11 @@ class MainActivity : AppCompatActivity() {
                     _binding.drawer.closeDrawer(GravityCompat.END)
                     true
                 }
+                R.id.nav_beeper -> {
+                    startActivity(Intent(this, BeeperActivity::class.java))
+                    _binding.drawer.closeDrawer(GravityCompat.END)
+                    true
+                }
                 R.id.nav_about -> {
                     startActivity(Intent(this, AboutActivity::class.java))
                     _binding.drawer.closeDrawer(GravityCompat.END)
@@ -197,9 +205,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun onMvtTimerTick() {
         Log.d(tag, "onMvtTimerTick")
-        if (null === _binding) {
-            return
-        }
         changeMargins()
         scheduleMvt()
     }
@@ -223,8 +228,8 @@ class MainActivity : AppCompatActivity() {
         val vPanel = _binding.panel.height
         val hContent = _binding.content.width
         val vContent = _binding.content.height
-        val hSpace = if (0 != hContent) hPanel - hContent - 2 * hToolbar else 0
-        val vSpace = if (0 != vContent) vPanel - vContent - 2 * vToolbar else 0
+        val hSpace = if (0 != hContent) maxOf(0, hPanel - hContent - 2 * hToolbar) else 0
+        val vSpace = if (0 != vContent) maxOf(0, vPanel - vContent - 2 * vToolbar) else 0
 
         // y_max|y_min = (vSpace / 2) * (1 +|- 1)
         // x_max|x_min = (hSpace / 2) * (1 +|- 1)

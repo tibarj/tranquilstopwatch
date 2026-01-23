@@ -7,15 +7,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="false"
-    android:background="@color/black"
     tools:context="tibarj.tranquilstopwatch.MainActivity">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="false"
-        android:background="@color/black">
+        android:fitsSystemWindows="false">
 
         <LinearLayout
             android:id="@+id/panel"
@@ -80,7 +78,7 @@
                         android:id="@+id/menu_button"
                         android:layout_width="?attr/actionBarSize"
                         android:layout_height="?attr/actionBarSize"
-                        android:contentDescription="@string/settings_placeholder"
+                        android:contentDescription="@string/cd_open_menu"
                         android:background="@android:color/transparent"
                         android:layout_gravity="bottom|start"
                         android:layout_marginBottom="0dp"
@@ -88,7 +86,7 @@
                         android:paddingRight="0dp"
                         android:layout_alignParentBottom="true"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/baseline_menu_24"
+                        android:src="@drawable/outline_menu_24"
                         app:tint="@color/icon_white" />
                 </RelativeLayout>
             </androidx.appcompat.widget.Toolbar>

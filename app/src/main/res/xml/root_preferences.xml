@@ -7,19 +7,19 @@
         app:layout="@layout/category">
 
         <SwitchPreferenceCompat
-            app:icon="@drawable/baseline_watch_off_24"
+            app:icon="@drawable/outline_watch_off_24"
             app:key="@string/clock_enabled_key"
             app:title="@string/clock_enabled_title"
             app:defaultValue="@bool/default_clock_enabled" />
 
         <SwitchPreferenceCompat
-            app:icon="@drawable/baseline_line_weight_24"
+            app:icon="@drawable/outline_line_weight_24"
             app:key="@string/clock_font_thin_key"
             app:title="@string/clock_font_thin_title"
             app:defaultValue="@bool/default_clock_font_thin"/>
 
         <SeekBarPreference
-            app:icon="@drawable/baseline_opacity_24"
+            app:icon="@drawable/outline_opacity_24"
             app:key="@string/clock_opacity_key"
             app:title="@string/clock_opacity_title"
             app:defaultValue="@integer/default_clock_opacity"
@@ -28,7 +28,7 @@
             android:max="20"/>
 
         <SeekBarPreference
-            app:icon="@drawable/baseline_format_size_24"
+            app:icon="@drawable/outline_format_size_24"
             app:key="@string/clock_size_key"
             app:title="@string/clock_size_title"
             app:defaultValue="@integer/default_clock_size"
@@ -43,25 +43,25 @@
         app:layout="@layout/category">
 
         <SwitchPreferenceCompat
-            app:icon="@drawable/baseline_watch_off_24"
+            app:icon="@drawable/outline_watch_off_24"
             app:key="@string/stopwatch_enabled_key"
             app:title="@string/stopwatch_enabled_title"
             app:defaultValue="@bool/default_stopwatch_enabled" />
 
         <SwitchPreferenceCompat
-            app:icon="@drawable/baseline_hdr_strong_24"
+            app:icon="@drawable/outline_hdr_strong_24"
             app:key="@string/stopwatch_show_seconds_key"
             app:title="@string/stopwatch_show_seconds_title"
             app:defaultValue="@bool/default_stopwatch_show_seconds" />
 
         <SwitchPreferenceCompat
-            app:icon="@drawable/baseline_line_weight_24"
+            app:icon="@drawable/outline_line_weight_24"
             app:key="@string/stopwatch_font_thin_key"
             app:title="@string/stopwatch_font_thin_title"
             app:defaultValue="@bool/default_stopwatch_font_thin"/>
 
         <SeekBarPreference
-            app:icon="@drawable/baseline_opacity_24"
+            app:icon="@drawable/outline_opacity_24"
             app:key="@string/stopwatch_opacity_key"
             app:title="@string/stopwatch_opacity_title"
             app:defaultValue="@integer/default_stopwatch_opacity"
@@ -70,7 +70,7 @@
             android:max="20"/>
 
         <SeekBarPreference
-            app:icon="@drawable/baseline_format_size_24"
+            app:icon="@drawable/outline_format_size_24"
             app:key="@string/stopwatch_size_key"
             app:title="@string/stopwatch_size_title"
             app:defaultValue="@integer/default_stopwatch_size"
@@ -81,11 +81,24 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        app:title="@string/settings_beeper_customization_category"
+        app:layout="@layout/category">
+
+        <SwitchPreferenceCompat
+            app:icon="@drawable/outline_alarm_24"
+            app:key="@string/beeper_override_silent_key"
+            app:title="@string/beeper_override_silent_title"
+            app:summary="@string/beeper_override_silent_summary"
+            app:defaultValue="@bool/default_beeper_override_silent" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
         app:title="@string/settings_global_customization_category"
         app:layout="@layout/category">
 
         <SeekBarPreference
-            app:icon="@drawable/baseline_moving_24"
+            app:icon="@drawable/outline_moving_24"
             app:key="@string/global_displacement_key"
             app:title="@string/global_displacement_title"
             app:summary="@string/global_displacement_summary"

@@ -3,7 +3,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red">#FFEE5555</color>
-    <color name="transparent_tint">#000000</color>
-    <color name="black_overlay">#66000000</color>
     <color name="icon_white">#ABABB1</color>
 </resources>

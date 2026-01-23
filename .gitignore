@@ -1,6 +1,7 @@
 *.iml
 *.bak
 .gradle
+/.kotlin
 /local.properties
 /.idea/caches
 /.idea/libraries
@@ -9,6 +10,8 @@
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
 /.idea/deploymentTargetSelector.xml
+/.idea/copilot*
+/.idea/studiobot.xml
 .DS_Store
 /build
 /captures

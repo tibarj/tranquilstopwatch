@@ -5,6 +5,7 @@
     <bool name="default_stopwatch_enabled">true</bool>
     <bool name="default_clock_enabled">true</bool>
     <bool name="default_clock_font_thin">true</bool>
+    <bool name="default_beeper_override_silent">false</bool>
     <integer name="default_stopwatch_opacity">13</integer>
     <integer name="default_stopwatch_size">60</integer>
     <integer name="default_clock_opacity">13</integer>

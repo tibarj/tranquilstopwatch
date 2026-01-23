@@ -1,0 +1,5 @@
+New feature: Customizable Audio Beepers
+• Create up to 10 custom beep alerts during stopwatch sessions
+• Configure frequency, duration, waveform, and volume for each beeper
+• Set precise timing: delay, repetitions, and intervals
+• Option to override silent mode (play beeps like alarms)
