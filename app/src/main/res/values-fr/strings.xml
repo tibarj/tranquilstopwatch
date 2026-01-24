@@ -14,6 +14,17 @@
     <string name="settings_beeper_customization_category">Beeper</string>
     <string name="settings_global_customization_category">Global</string>
 
+    <string name="time_font_import_title">Police personnalisée</string>
+    <string name="time_font_pick_hint">Choisissez un fichier de police .ttf</string>
+    <string name="time_font_thin_disabled_summary">Indisponible lorsqu\'une police personnalisée est active</string>
+    <string name="time_font_reset_title">Utiliser la police par défaut</string>
+    <string name="time_font_reset_summary">Revient à la police système par défaut</string>
+    <string name="time_font_current_summary_default">Actuelle : Par défaut</string>
+    <string name="time_font_current_summary_custom">Actuelle : %1$s</string>
+    <string name="time_font_unknown_name">Police importée</string>
+    <string name="time_font_imported_toast">Police importée</string>
+    <string name="time_font_import_failed_toast">Échec de l\'import : %1$s</string>
+
     <string name="stopwatch_enabled_title">Activé</string>
     <string name="stopwatch_show_seconds_title">Afficher les secondes</string>
     <string name="stopwatch_font_thin_title">Police fine</string>

@@ -44,12 +44,18 @@ class ClockFragment : Fragment() {
             resources.getBoolean(R.bool.default_clock_enabled)
         )
 
-        val fontFamily = "sans-serif" + if (pref.getBoolean(
-                getString(R.string.clock_font_thin_key),
-                resources.getBoolean(R.bool.default_clock_font_thin)
-            )) "-thin" else ""
-        Log.d(tag, "setFontFamily $fontFamily")
-        binding.clock.typeface = Typeface.create(fontFamily, Typeface.NORMAL)
+        val customTypeface = TimeFontManager.getTypeface(requireContext())
+        if (customTypeface != null) {
+            Log.d(tag, "setCustomTypeface")
+            binding.clock.typeface = customTypeface
+        } else {
+            val fontFamily = "sans-serif" + if (pref.getBoolean(
+                    getString(R.string.clock_font_thin_key),
+                    resources.getBoolean(R.bool.default_clock_font_thin)
+                )) "-thin" else ""
+            Log.d(tag, "setFontFamily $fontFamily")
+            binding.clock.typeface = Typeface.create(fontFamily, Typeface.NORMAL)
+        }
 
         val opacity = pref.getInt(
             getString(R.string.clock_opacity_key),

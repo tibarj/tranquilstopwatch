@@ -15,6 +15,17 @@
     <string name="settings_beeper_customization_category">蜂鸣器</string>
     <string name="settings_global_customization_category">全局</string>
 
+    <string name="time_font_import_title">自定义字体</string>
+    <string name="time_font_pick_hint">请选择 .ttf 字体文件</string>
+    <string name="time_font_thin_disabled_summary">启用自定义字体时不可用</string>
+    <string name="time_font_reset_title">使用默认字体</string>
+    <string name="time_font_reset_summary">切换回系统默认字体</string>
+    <string name="time_font_current_summary_default">当前：默认</string>
+    <string name="time_font_current_summary_custom">当前：%1$s</string>
+    <string name="time_font_unknown_name">已导入字体</string>
+    <string name="time_font_imported_toast">字体已导入</string>
+    <string name="time_font_import_failed_toast">字体导入失败：%1$s</string>
+
     <!-- 秒表设置项 -->
     <string name="stopwatch_enabled_title">启用秒表</string>
     <string name="stopwatch_show_seconds_title">显示秒数</string>
