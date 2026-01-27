@@ -31,6 +31,8 @@ class MainActivity : AppCompatActivity() {
     private val _handlerMvt = Handler(Looper.getMainLooper())
     private var _isMvtScheduled = false
     private var _displacement: Int = 0
+    private var _randX: Double = 0.0
+    private var _randY: Double = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // Keep MainActivity dark even if the system theme is light.
@@ -56,6 +58,18 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
         setContentView(_binding.drawer)
 
+        // Re-center the content when its size changes (e.g. font size updates).
+        // Do not re-randomize burn-in offsets for these layout-driven adjustments.
+        _binding.content.addOnLayoutChangeListener { _, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
+            val newW = right - left
+            val newH = bottom - top
+            val oldW = oldRight - oldLeft
+            val oldH = oldBottom - oldTop
+            if (newW != oldW || newH != oldH) {
+                changeMargins(updateRandom = false)
+            }
+        }
+
         _runnableBtn = Runnable {
             _binding.menuButton.visibility = View.GONE
         }
@@ -73,7 +87,7 @@ class MainActivity : AppCompatActivity() {
                 // Remove the listener to prevent multiple calls
                 _binding.panel.viewTreeObserver?.removeOnGlobalLayoutListener(this)
 
-                changeMargins()
+                changeMargins(updateRandom = false)
             }
         })
 
@@ -90,6 +104,13 @@ class MainActivity : AppCompatActivity() {
 
         if (0 != _displacement) {
             scheduleMvt()
+        }
+    }
+
+    fun requestRecenter() {
+        // Post so this runs after pending layout passes (e.g. after fragments update text size).
+        _binding.content.post {
+            changeMargins(updateRandom = false)
         }
     }
 
@@ -192,6 +213,9 @@ class MainActivity : AppCompatActivity() {
         )
         showStopwatch(stopwatchEnabled)
 
+        // Visibility changes affect content size; re-center without triggering a random move.
+        _binding.content.post { changeMargins(updateRandom = false) }
+
         val displacement = pref.getInt(
             getString(R.string.global_displacement_key),
             resources.getInteger(R.integer.default_global_displacement)
@@ -199,17 +223,17 @@ class MainActivity : AppCompatActivity() {
         if (_displacement != displacement) {
             Log.d(tag, "setDisplacement $displacement")
             _displacement = displacement
-            changeMargins()
+            changeMargins(updateRandom = false)
         }
     }
 
     private fun onMvtTimerTick() {
         Log.d(tag, "onMvtTimerTick")
-        changeMargins()
+        changeMargins(updateRandom = true)
         scheduleMvt()
     }
 
-    private fun changeMargins() {
+    private fun changeMargins(updateRandom: Boolean) {
         Log.d(tag, "changeMargins")
 
         val hToolbar: Int
@@ -237,8 +261,14 @@ class MainActivity : AppCompatActivity() {
                 (2 * resources.getInteger(R.integer.global_displacement_max).toDouble())
         val hMax = (ratio * hSpace.toDouble()).toInt()
         val vMax = (ratio * vSpace.toDouble()).toInt()
-        val left = (hSpace.toDouble() / 2.0).toInt() + Random.nextInt(-hMax, hMax + 1)
-        val top = (vSpace.toDouble() / 2.0).toInt() + Random.nextInt(-vMax, vMax + 1)
+
+        if (updateRandom) {
+            _randX = Random.nextDouble(-1.0, 1.0)
+            _randY = Random.nextDouble(-1.0, 1.0)
+        }
+
+        val left = (hSpace.toDouble() / 2.0).toInt() + (_randX * hMax.toDouble()).toInt()
+        val top = (vSpace.toDouble() / 2.0).toInt() + (_randY * vMax.toDouble()).toInt()
 
         Log.d(tag, "hSpace $hSpace")
         Log.d(tag, "vSpace $vSpace")

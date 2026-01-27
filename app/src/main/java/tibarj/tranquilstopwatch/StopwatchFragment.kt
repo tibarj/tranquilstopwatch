@@ -156,6 +156,11 @@ class StopwatchFragment : Fragment() {
         val size = pref.getInt(getString(R.string.stopwatch_size_key), resources.getInteger(R.integer.default_stopwatch_size))
         Log.d(tag, "setStopwatchSize $size")
         binding.stopwatch.textSize = size.toFloat()
+
+        // Font size changes alter the layout; ask the activity to recenter after relayout.
+        binding.root.post {
+            (activity as? MainActivity)?.requestRecenter()
+        }
     }
 
     private fun initTapListeners() {

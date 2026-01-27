@@ -67,6 +67,11 @@ class ClockFragment : Fragment() {
         val size = pref.getInt(getString(R.string.clock_size_key), resources.getInteger(R.integer.default_stopwatch_size))
         Log.d(tag, "setClockSize $size")
         binding.clock.textSize = size.toFloat()
+
+        // Font size changes alter the layout; ask the activity to recenter after relayout.
+        binding.root.post {
+            (activity as? MainActivity)?.requestRecenter()
+        }
     }
 
     // visible but not interactable
