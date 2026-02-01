@@ -14,6 +14,17 @@
     <string name="settings_beeper_customization_category">Beeper</string>
     <string name="settings_global_customization_category">Global</string>
 
+    <string name="time_font_import_title">Custom font</string>
+    <string name="time_font_pick_hint">Choose a .ttf font file</string>
+    <string name="time_font_thin_disabled_summary">Not available while a custom font is active</string>
+    <string name="time_font_reset_title">Use default font</string>
+    <string name="time_font_reset_summary">Switches back to the system default font</string>
+    <string name="time_font_current_summary_default">Current: Default</string>
+    <string name="time_font_current_summary_custom">Current: %1$s</string>
+    <string name="time_font_unknown_name">Imported font</string>
+    <string name="time_font_imported_toast">Font imported</string>
+    <string name="time_font_import_failed_toast">Font import failed: %1$s</string>
+
     <string name="stopwatch_enabled_title">Enabled</string>
     <string name="stopwatch_show_seconds_title">Display seconds</string>
     <string name="stopwatch_font_thin_title">Thin font</string>

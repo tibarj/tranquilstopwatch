@@ -133,12 +133,18 @@ class StopwatchFragment : Fragment() {
             resources.getBoolean(R.bool.default_stopwatch_show_seconds)
         )
 
-        val fontFamily = "sans-serif" + if (pref.getBoolean(
-                getString(R.string.stopwatch_font_thin_key),
-                resources.getBoolean(R.bool.default_stopwatch_font_thin)
-            )) "-thin" else ""
-        Log.d(tag, "setFontFamily $fontFamily")
-        binding.stopwatch.typeface = Typeface.create(fontFamily, Typeface.NORMAL)
+        val customTypeface = TimeFontManager.getTypeface(requireContext())
+        if (customTypeface != null) {
+            Log.d(tag, "setCustomTypeface")
+            binding.stopwatch.typeface = customTypeface
+        } else {
+            val fontFamily = "sans-serif" + if (pref.getBoolean(
+                    getString(R.string.stopwatch_font_thin_key),
+                    resources.getBoolean(R.bool.default_stopwatch_font_thin)
+                )) "-thin" else ""
+            Log.d(tag, "setFontFamily $fontFamily")
+            binding.stopwatch.typeface = Typeface.create(fontFamily, Typeface.NORMAL)
+        }
 
         val opacity = pref.getInt(
             getString(R.string.stopwatch_opacity_key),
@@ -150,6 +156,11 @@ class StopwatchFragment : Fragment() {
         val size = pref.getInt(getString(R.string.stopwatch_size_key), resources.getInteger(R.integer.default_stopwatch_size))
         Log.d(tag, "setStopwatchSize $size")
         binding.stopwatch.textSize = size.toFloat()
+
+        // Font size changes alter the layout; ask the activity to recenter after relayout.
+        binding.root.post {
+            (activity as? MainActivity)?.requestRecenter()
+        }
     }
 
     private fun initTapListeners() {

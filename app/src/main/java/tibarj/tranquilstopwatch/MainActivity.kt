@@ -56,6 +56,18 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
         setContentView(_binding.drawer)
 
+        // Re-center the content when its size changes (e.g. font size updates).
+        // Do not re-randomize burn-in offsets for these layout-driven adjustments.
+        _binding.content.addOnLayoutChangeListener { _, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
+            val newW = right - left
+            val newH = bottom - top
+            val oldW = oldRight - oldLeft
+            val oldH = oldBottom - oldTop
+            if (newW != oldW || newH != oldH) {
+                changeMargins()
+            }
+        }
+
         _runnableBtn = Runnable {
             _binding.menuButton.visibility = View.GONE
         }
@@ -90,6 +102,13 @@ class MainActivity : AppCompatActivity() {
 
         if (0 != _displacement) {
             scheduleMvt()
+        }
+    }
+
+    fun requestRecenter() {
+        // Post so this runs after pending layout passes (e.g. after fragments update text size).
+        _binding.content.post {
+            changeMargins()
         }
     }
 
@@ -192,6 +211,9 @@ class MainActivity : AppCompatActivity() {
         )
         showStopwatch(stopwatchEnabled)
 
+        // Visibility changes affect content size; re-center without triggering a random move.
+        _binding.content.post { changeMargins() }
+
         val displacement = pref.getInt(
             getString(R.string.global_displacement_key),
             resources.getInteger(R.integer.default_global_displacement)
@@ -237,6 +259,7 @@ class MainActivity : AppCompatActivity() {
                 (2 * resources.getInteger(R.integer.global_displacement_max).toDouble())
         val hMax = (ratio * hSpace.toDouble()).toInt()
         val vMax = (ratio * vSpace.toDouble()).toInt()
+
         val left = (hSpace.toDouble() / 2.0).toInt() + Random.nextInt(-hMax, hMax + 1)
         val top = (vSpace.toDouble() / 2.0).toInt() + Random.nextInt(-vMax, vMax + 1)
 

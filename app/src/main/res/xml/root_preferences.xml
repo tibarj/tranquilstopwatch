@@ -97,6 +97,16 @@
         app:title="@string/settings_global_customization_category"
         app:layout="@layout/category">
 
+        <Preference
+            app:icon="@drawable/outline_brand_family_24"
+            app:key="@string/time_font_import_key"
+            app:title="@string/time_font_import_title" />
+
+        <Preference
+            app:key="@string/time_font_reset_key"
+            app:title="@string/time_font_reset_title"
+            app:summary="@string/time_font_reset_summary" />
+
         <SeekBarPreference
             app:icon="@drawable/outline_moving_24"
             app:key="@string/global_displacement_key"

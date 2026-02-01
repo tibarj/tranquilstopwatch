@@ -11,4 +11,9 @@
     <string name="clock_size_key">clock_size_key</string>
     <string name="global_displacement_key">global_movement_key</string>
     <string name="beeper_override_silent_key">beeper_override_silent</string>
+
+    <string name="time_font_import_key">time_font_import</string>
+    <string name="time_font_reset_key">time_font_reset</string>
+    <string name="time_font_path_key">time_font_path</string>
+    <string name="time_font_name_key">time_font_name</string>
 </resources>

@@ -44,12 +44,18 @@ class ClockFragment : Fragment() {
             resources.getBoolean(R.bool.default_clock_enabled)
         )
 
-        val fontFamily = "sans-serif" + if (pref.getBoolean(
-                getString(R.string.clock_font_thin_key),
-                resources.getBoolean(R.bool.default_clock_font_thin)
-            )) "-thin" else ""
-        Log.d(tag, "setFontFamily $fontFamily")
-        binding.clock.typeface = Typeface.create(fontFamily, Typeface.NORMAL)
+        val customTypeface = TimeFontManager.getTypeface(requireContext())
+        if (customTypeface != null) {
+            Log.d(tag, "setCustomTypeface")
+            binding.clock.typeface = customTypeface
+        } else {
+            val fontFamily = "sans-serif" + if (pref.getBoolean(
+                    getString(R.string.clock_font_thin_key),
+                    resources.getBoolean(R.bool.default_clock_font_thin)
+                )) "-thin" else ""
+            Log.d(tag, "setFontFamily $fontFamily")
+            binding.clock.typeface = Typeface.create(fontFamily, Typeface.NORMAL)
+        }
 
         val opacity = pref.getInt(
             getString(R.string.clock_opacity_key),
@@ -61,6 +67,11 @@ class ClockFragment : Fragment() {
         val size = pref.getInt(getString(R.string.clock_size_key), resources.getInteger(R.integer.default_stopwatch_size))
         Log.d(tag, "setClockSize $size")
         binding.clock.textSize = size.toFloat()
+
+        // Font size changes alter the layout; ask the activity to recenter after relayout.
+        binding.root.post {
+            (activity as? MainActivity)?.requestRecenter()
+        }
     }
 
     // visible but not interactable
